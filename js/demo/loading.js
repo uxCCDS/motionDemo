@@ -15,12 +15,14 @@
 				attr: {
 					fill: '#C7A5FA'
 				},
-				time: t0 + 8 * step
+				time: t0 + 8 * step,
+		        tween:'easeInOut'
 			},{
 				attr: {
 					fill: '#875AE0'
 				},
-				time: t0 + 16 * step
+				time: t0 + 16 * step,
+		        tween:'easeInOut'
 			}]
 		},{
 			dom: dom,
@@ -35,13 +37,15 @@
 					r:'28.0',
                     cx: x0 + 17
 				},
-				time: t0 + 8 * step
+				time: t0 + 8 * step,
+		        tween:'easeInOut'
 			},{
 				attr: {
 					r:'14.0',
                     cx: x0
 				},
-				time: t0 + 32 * step
+				time: t0 + 32 * step,
+		        tween:'easeInOut'
 			}]
 		}];
 	};
@@ -65,12 +69,14 @@
 	    		attr: {
 					fill: '#C7A5FA'
 				},
-				time: COLORT[idx][0]
+				time: COLORT[idx][0],
+		        tween:'easeInOut'
 	    	},{
 	    		attr: {
 					fill: '#875AE0'
 				},
-				time: COLORT[idx][1]
+				time: COLORT[idx][1],
+		        tween:'easeInOut'
 	    	}]
 	    },{
 	    	dom : ball, 
@@ -83,7 +89,8 @@
 	    		attr: {
 					r: '13.0'
 				},
-				time: SCALET[idx][1]
+				time: SCALET[idx][1],
+		        tween:'easeInOut'
 	    	},{
 	    		attr: {
 					r: '13.0'
@@ -93,7 +100,8 @@
 	    		attr: {
 					r: '28.0'
 				},
-				time: SCALET[idx][3]
+				time: SCALET[idx][3],
+		        tween:'easeInOut'
 	    	}]
 	    }];
 
