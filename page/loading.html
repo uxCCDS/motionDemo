@@ -11,14 +11,35 @@
 		<meta name="format-detection" content="telephone=no">
 		<script type="text/javascript" src='../js/lib/beta/momentum-ui-motion-min.js'></script>
 		<script type="text/javascript" src='../js/demo/loading.js'></script>
+		<style type="text/css">
+			.con{position: relative;}
+			.con svg {position: absolute; top: 0px; left: 0px;}
+			.con .scon{position: absolute; top: 0px; left: 0px; width: 200px; height: 200px;}
+		</style>
 	</head>
 	<body>
 	  <div id="app">
 	    <svg width="400px" height="400px" id='svgLoading' viewBox="0 0 400 400">
 			<circle id='c1' cx="136" cy="200" r="14" fill="#7F4FD7"/>
 			<circle id='c2' cx="200" cy="200" r="14" fill="#7F4FD7"/>
-			<circle id='c3' cx="264 " cy="200" r="14" fill="#7F4FD7"/>
+			<circle id='c3' cx="264" cy="200" r="14" fill="#7F4FD7"/>
 		</svg>
+	</div>
+	<div class='con'>
+		<div class='scon' id='scon'>
+			<svg width="200px" height="200px" id='svgSpinner1' viewBox="0 0 200 200">
+				<circle id='s1' cx="44" cy="100" r="28" fill="#7F4FD7"/>
+			</svg>
+			<svg width="200px" height="200px" id='svgSpinner2' viewBox="0 0 200 200">
+				<circle id='s2' cx="100" cy="156" r="28" fill="#7F4FD7"/>
+			</svg>
+			<svg width="200px" height="200px" id='svgSpinner3' viewBox="0 0 200 200">
+				<circle id='s3' cx="156" cy="100" r="28" fill="#7F4FD7"/>
+			</svg>
+			<svg width="200px" height="200px" id='svgSpinner4' viewBox="0 0 200 200">
+				<circle id='s4' cx="100" cy="44" r="28" fill="#7F4FD7"/>
+			</svg>
+		</div>
 	  </div>
 	</body>
 </html>
