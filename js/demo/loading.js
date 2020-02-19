@@ -1,109 +1,64 @@
 
     //example();
-    var step = 2;
-
     var generatorBallMotion = function(x0, t0, dom) {
 		//r 28 68 28 
 		return [{
 			dom: dom,
-			frames: [{
-				attr: {
-					fill: '#875AE0'
-				},
-				time: t0
-			},{
-				attr: {
-					fill: '#C7A5FA'
-				},
-				time: t0 + 8 * step,
-		        tween:'easeInOut'
-			},{
-				attr: {
-					fill: '#875AE0'
-				},
-				time: t0 + 16 * step,
-		        tween:'easeInOut'
-			}]
+			frames: [
+				{ attr: { fill: '#875AE0' }, time: t0 },
+				{ attr: { fill: '#C7A5FA' }, time: t0 + 15, tween:'easeInOut' },
+				{ attr: { fill: '#875AE0' }, time: t0 + 30, tween:'easeInOut'}
+			]
 		},{
 			dom: dom,
-			frames: [{
-				attr: {
-                    r:'14.0',
-                    cx: x0
-				},
-				time: t0
-			},{
-				attr: {
-					r:'28.0',
-                    cx: x0 + 17
-				},
-				time: t0 + 8 * step,
-		        tween:'easeInOut'
-			},{
-				attr: {
-					r:'14.0',
-                    cx: x0
-				},
-				time: t0 + 32 * step,
-		        tween:'easeInOut'
-			}]
+			frames: [
+				{ attr: { r:'14.0', cx: x0 }, time: t0 },
+				{ attr: { r:'33.6', cx: x0 + 17 }, time: t0 + 15, tween:'easeInOut'},
+				{ attr: { r:'14.0', cx: x0 }, time: t0 + 65, tween:'easeIn'}
+			]
 		}];
 	};
 
-	var step2 = 3,
-		endtime = [20,20,28,38],
-		COLORT =[[16,18],[16,25],[18,25],[13,25]],
-		SCALET = [[0,17,17,40],[0,17,25,40],[0,17,30,40],[0,17,17,40]];
+	var endtime = [0,76,58,41],
+		COLORT =[[32,35],[26,50],[35,50],[31,50]],
+		SCALET = [[35,35,80],[35,35,80],[35,60,80],[35,50,80]],
+		OPACITY = {
+			0:[25,26,35,45],
+			2:[22,23,50,70],
+			3:[36,37,45,60]
+		};
 
 	var spinner = function(index) {
 		let ball = document.getElementById('s'+index),
 			idx =index-1,
 			ret =[{
 	    	dom : ball, 
-	    	frames: [{
-	    		attr: {
-					fill: '#875AE0'
-				},
-				time: 0
-	    	},{
-	    		attr: {
-					fill: '#C7A5FA'
-				},
-				time: COLORT[idx][0],
-		        tween:'easeInOut'
-	    	},{
-	    		attr: {
-					fill: '#875AE0'
-				},
-				time: COLORT[idx][1],
-		        tween:'easeInOut'
-	    	}]
+	    	frames: [
+	    		{ attr: { fill: '#875AE0' }, time: 0 },
+	    		{ attr: { fill: '#C7A5FA' }, time: COLORT[idx][0] },
+	    		{ attr: { fill: '#875AE0' }, time: COLORT[idx][1] }
+	    	]
 	    },{
 	    	dom : ball, 
-	    	frames: [{
-	    		attr: {
-					r: '28.0'
-				},
-				time: SCALET[idx][0]
-	    	},{
-	    		attr: {
-					r: '13.0'
-				},
-				time: SCALET[idx][1],
-		        tween:'easeInOut'
-	    	},{
-	    		attr: {
-					r: '13.0'
-				},
-				time: SCALET[idx][2]
-	    	},{
-	    		attr: {
-					r: '28.0'
-				},
-				time: SCALET[idx][3],
-		        tween:'easeInOut'
-	    	}]
+	    	frames: [
+	    		{ attr: { r: '28.0' }, time: 0 },
+	    		{ attr: { r: '13.0' }, time: SCALET[idx][0], tween:'easeInOut' },
+	    		{ attr: { r: '13.0' }, time: SCALET[idx][1] },
+	    		{ attr: { r: '28.0' }, time: SCALET[idx][2], tween:'easeInOut' }
+	    	]
 	    }];
+
+	    if(OPACITY[idx]) {
+	    	ret.push({
+		    	dom : ball, 
+		    	frames: [
+		    		{ css: { opacity: '1.0' }, time: OPACITY[idx][0]},
+		    		{ css: { opacity: '.0' }, time: OPACITY[idx][1]},
+		    		{ css: { opacity: '.0' }, time: OPACITY[idx][2]},
+		    		{ css: { opacity: '1.0' }, time: OPACITY[idx][3]}
+		    	]
+		    });
+		}
 
 	    if(index>1) {
 	    	ret.push({
@@ -112,12 +67,12 @@
 		            css: {
 		                transform: 'rotate(0deg)'
 		            },
-		            time: 0 * step2
+		            time: 0
 		        },{
 		            css: {
 		                transform: 'rotate(-360deg)'
 		            },
-		            time: endtime[idx] * step2,
+		            time: endtime[idx],
 		            tween:'easeInOut'
 		        }]
 		    });
@@ -128,31 +83,31 @@
 
 	var animation1 = function() {
 	    var b1 = generatorBallMotion(136, 0, document.getElementById('c1')),
-	        b2 = generatorBallMotion(200, 8, document.getElementById('c2')),
-	        b3 = generatorBallMotion(264, 16, document.getElementById('c3'));
+	        b2 = generatorBallMotion(200, 15, document.getElementById('c2')),
+	        b3 = generatorBallMotion(264, 30, document.getElementById('c3'));
 
-		var motion = new MM([{
+		var motion = MM([{
 	        dom: document.getElementById('svgLoading'),
 	        frames: [{
 	            css: {
 	                transform: 'translateX(0px)'
 	            },
-	            time: 5 * step
+	            time: 10
 	        },{
 	            css: {
-	                transform: 'translateX(8px)'
+	                transform: 'translateX(16px)'
 	            },
-	            time: 20 * step
+	            time: 40
 	        },{
 	            css: {
-	                transform: 'translateX(-8px)'
+	                transform: 'translateX(-16px)'
 	            },
-	            time: 35 * step
+	            time: 70
 	        },{
 	            css: {
 	                transform: 'translateX(0px)'
 	            },
-	            time: 50 * step
+	            time: 100
 	        }]
 	    }].concat(b1).concat(b2).concat(b3));
 		motion.repeat(Infinity);
@@ -168,15 +123,15 @@
 	            css: {
 	                transform: 'rotate(0deg)'
 	            },
-	            time: 0 * step2
+	            time: 0
 	        },{
 	            css: {
 	                transform: 'rotate(-360px)'
 	            },
-	            time: 48 * step2
+	            time: 100
 	        }]
 	    }];
-		var motion = new MM(outer.concat(s1).concat(s2).concat(s3).concat(s4));
+		var motion = MM(outer.concat(s1).concat(s2).concat(s3).concat(s4));
 		motion.repeat(Infinity);
 	};
 
