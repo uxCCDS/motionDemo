@@ -7,14 +7,10 @@
 			frames: [
 				{ attr: { fill: '#875AE0' }, time: t0 },
 				{ attr: { fill: '#C7A5FA' }, time: t0 + 15, tween:'easeInOut' },
-				{ attr: { fill: '#875AE0' }, time: t0 + 30, tween:'easeInOut'}
-			]
-		},{
-			dom: dom,
-			frames: [
+				{ attr: { fill: '#875AE0' }, time: t0 + 30, tween:'easeInOut'},
 				{ attr: { r:'14.0', cx: x0 }, time: t0 },
 				{ attr: { r:'33.6', cx: x0 + 17 }, time: t0 + 15, tween:'easeInOut'},
-				{ attr: { r:'14.0', cx: x0 }, time: t0 + 65, tween:'easeIn'}
+				{ attr: { r:'14.0', cx: x0 }, time: t0 + 65, tween:'easeInCubic'}
 			]
 		}];
 	};
@@ -36,11 +32,7 @@
 	    	frames: [
 	    		{ attr: { fill: '#875AE0' }, time: 0 },
 	    		{ attr: { fill: '#C7A5FA' }, time: COLORT[idx][0] },
-	    		{ attr: { fill: '#875AE0' }, time: COLORT[idx][1] }
-	    	]
-	    },{
-	    	dom : ball, 
-	    	frames: [
+	    		{ attr: { fill: '#875AE0' }, time: COLORT[idx][1] },
 	    		{ attr: { r: '28.0' }, time: 0 },
 	    		{ attr: { r: '13.0' }, time: SCALET[idx][0], tween:'easeInOut' },
 	    		{ attr: { r: '13.0' }, time: SCALET[idx][1] },
@@ -53,8 +45,8 @@
 		    	dom : ball, 
 		    	frames: [
 		    		{ css: { opacity: '1.0' }, time: OPACITY[idx][0]},
-		    		{ css: { opacity: '.0' }, time: OPACITY[idx][1]},
-		    		{ css: { opacity: '.0' }, time: OPACITY[idx][2]},
+		    		{ css: { opacity: '0.0' }, time: OPACITY[idx][1]},
+		    		{ css: { opacity: '0.0' }, time: OPACITY[idx][2]},
 		    		{ css: { opacity: '1.0' }, time: OPACITY[idx][3]}
 		    	]
 		    });
@@ -95,12 +87,12 @@
 	            time: 10
 	        },{
 	            css: {
-	                transform: 'translateX(16px)'
+	                transform: 'translateX(30px)'
 	            },
 	            time: 40
 	        },{
 	            css: {
-	                transform: 'translateX(-16px)'
+	                transform: 'translateX(-30px)'
 	            },
 	            time: 70
 	        },{
@@ -132,6 +124,7 @@
 	        }]
 	    }];
 		var motion = MM(outer.concat(s1).concat(s2).concat(s3).concat(s4));
+		console.log(motion);
 		motion.repeat(Infinity);
 	};
 
