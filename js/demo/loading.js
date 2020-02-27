@@ -78,7 +78,7 @@
 	        b2 = generatorBallMotion(200, 15, document.getElementById('c2')),
 	        b3 = generatorBallMotion(264, 30, document.getElementById('c3'));
 
-		var motion = MM([{
+		var motion = mframe([{
 	        dom: document.getElementById('svgLoading'),
 	        frames: [{
 	            css: {
@@ -123,7 +123,7 @@
 	            time: 100
 	        }]
 	    }];
-		var motion = MM(outer.concat(s1).concat(s2).concat(s3).concat(s4));
+		var motion = mframe(outer.concat(s1).concat(s2).concat(s3).concat(s4));
 		console.log(motion);
 		motion.repeat(Infinity);
 	};
