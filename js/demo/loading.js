@@ -9,7 +9,7 @@
 				{ attr: { fill: '#C7A5FA' }, time: t0 + 15, tween:'easeInOut' },
 				{ attr: { fill: '#875AE0' }, time: t0 + 30, tween:'easeInOut'},
 				{ attr: { r:'14.0', cx: x0 }, time: t0 },
-				{ attr: { r:'33.6', cx: x0 + 17 }, time: t0 + 15, tween:'easeInOut'},
+				{ attr: { r:'33.6', cx: x0 + 17 }, time: t0 + 15, tween:'easeInOutSine'},
 				{ attr: { r:'14.0', cx: x0 }, time: t0 + 65, tween:'easeInCubic'}
 			]
 		}];
