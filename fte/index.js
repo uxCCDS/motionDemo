@@ -86,8 +86,7 @@
         appear: function (index, t0) {
             var con = document.getElementById('pop' + index),
                 tri = document.getElementById('popTri' + index),
-                rect = document.getElementById('popRect' + index),
-                text = document.getElementById('popText' + index);
+                p = document.getElementById('popP' + index);
             var conFrames = [
                 { css: { opacity: '1.0' }, time: t0 + 290 },
                 { css: { opacity: '0.0' }, time: t0 + 300 }
@@ -108,16 +107,12 @@
                         { attr: { transform: 'scale(1,1.0)' }, tween: 'easeInOut', time: t0 + 6 }
                     ]
                 }, {
-                    dom: rect,
+                    dom: p,
                     frames: [
-                        { attr: { transform: 'scale(0,0)' }, time: t0 + 5 },
-                        { attr: { transform: 'scale(1.0,1.0)' }, tween: 'easeInOut', time: t0 + 20 }
-                    ]
-                }, {
-                    dom: text,
-                    frames: [
-                        { css: { opacity: '0' }, time: t0 + 17 },
-                        { css: { opacity: '1.0' }, time: t0 + 20 },
+                        { css: { transform: 'scale(0.0)' }, time: t0 + 5 },
+                        { css: { transform: 'scale(1.0)' }, tween: 'easeInOut', time: t0 + 20 },
+                        { css: { color: 'rgba(255,255,255,0)' }, time: t0 + 17 },
+                        { css: { color: 'rgba(255,255,255,1)' }, time: t0 + 20 },
                     ]
                 }];
         }
