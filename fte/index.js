@@ -20,18 +20,18 @@
             m.add(this.appear(1, t1));
             m.add(this.appear(2, t2));
             m.add(this.appear(3, t3));
-            m.add(this.controls(t2-30));
+            m.add(this.controls(t2-20));
             this.M = m;
         },
         controls: function (t0) {
             var frames = [
-                { attr: { 'stroke-dashoffset': '190' }, time: t0 },
-                { attr: { 'fill-opacity': '0.0' }, time: t0 + 20 },
-                { attr: { 'fill-opacity': '0.16' }, time: t0 + 30 },
-                { attr: { 'stroke-dashoffset': '0' }, tween: 'easeInOut', time: t0 + 30 },
-                { css: { 'opacity': '1.0' }, time: t0 + 270 },
-                { css: { 'opacity': '0.0' }, time: t0 + 300 }
-            ],
+                    { attr: { 'stroke-dashoffset': '190' }, time: t0 },
+                    { attr: { 'fill-opacity': '0.0' }, time: t0 + 20 },
+                    { attr: { 'fill-opacity': '0.16' }, time: t0 + 30 },
+                    { attr: { 'stroke-dashoffset': '0' }, tween: 'easeInOut', time: t0 + 30 },
+                    { css: { 'opacity': '1.0' }, time: t0 + 290 },
+                    { css: { 'opacity': '0.0' }, time: t0 + 320 }
+                ],
                 t2;
             for (var i = 0; i < 2; i++) {
                 t2 = t0 + 30 + 60 * i;
@@ -41,6 +41,14 @@
             return [{
                 dom: document.getElementById('controls'),
                 frames: frames
+            }, {
+                dom: [document.getElementById('btnVideo'),document.getElementById('btnMute')],
+                frames: [
+                    { css: { 'opacity': '0.0' }, time: t0 + 20 },
+                    { css: { 'opacity': '1.0' }, time: t0 + 30 },
+                    { css: { 'opacity': '1.0' }, time: t0 + 310 },
+                    { css: { 'opacity': '0.0' }, time: t0 + 320 }
+                ]
             }];
         },
         button: function (index, t0) {
