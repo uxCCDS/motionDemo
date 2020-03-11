@@ -7,21 +7,16 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" >
 		<meta name="format-detection" content="telephone=no">
 		<style type="text/css">
-			*{margin:0px; padding: 0px; font-size: 16px; }
+			*{margin:0px; padding: 0px; }
+			text, tspan {font-size: 15px; font-family:"SF Pro Text", "Segoe UI"; font-weight:600;letter-spacing:0px; white-space: pre;}
 			body,html,svg{width: 100%; height: 100%;}
 			.opcity0{opacity: 0;}
-			.foreignContainer{position: relative; width: 520px; height:248px;}
-			.foreignContainer p{
-				position: absolute; padding: 20px 20px; line-height: 20px; display:block; border-radius: 5px; background-color: #08599C; color: rgba(255,255,255,1);
-				font-family:"SF Pro Text","Segoe UI";font-size:15px; font-weight:600; letter-spacing:0px;
-				transform-origin: 50% 100%;
-			}
 		</style>
 		<script type="text/javascript" src='mframe.js'></script>
 		<script type="text/javascript" src='index.js'></script>
 	</head>
 	<body>
-		<svg width="auto" height="auto" viewBox="0 0 520 248" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<svg viewBox="0 0 520 248" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<rect width="520" height="248" fill="white" fill-opacity="0.1"/>
 			<rect x="123.28" y="13.28" width="273.44" height="222.44" rx="20.72" fill="white" stroke="#9E9FA2" stroke-width="1.44"/>
 			<rect x="124" y="34" width="272" height="169" fill="#F2F2F2"/>
@@ -58,40 +53,29 @@
 			<rect id='controls' x="188" y="164" width="72" height="36" rx="18" fill="#0077D3" stroke-dashoffset='190' stroke-dasharray='190 190' fill-opacity="0" stroke="#0077D3" stroke-width="1.34951"/>
 			<path fill-rule="evenodd" clip-rule="evenodd" d="M206 196C213.732 196 220 189.732 220 182C220 174.268 213.732 168 206 168C198.268 168 192 174.268 192 182C192 189.732 198.268 196 206 196Z" fill="#707070"/>
 			<path fill-rule="evenodd" clip-rule="evenodd" d="M242 196C249.732 196 256 189.732 256 182C256 174.268 249.732 168 242 168C234.268 168 228 174.268 228 182C228 189.732 234.268 196 242 196Z" fill="#707070"/>
-			<path fill-rule="evenodd" clip-rule="evenodd" d="M248.003 183.998L246.01 182.001L248.003 180.004V183.998ZM244.503 186H237.707L245 178.707V185.503C245 185.777 244.776 186 244.503 186ZM237 178.498C237 178.224 237.223 178 237.497 178H244.293L237 185.293V178.498ZM248.453 179.068C248.12 178.931 247.741 179.006 247.492 179.258L246 180.733V178.498C246 178.268 245.943 178.052 245.85 177.857L246.853 176.854C247.048 176.659 247.048 176.342 246.853 176.147C246.658 175.952 246.341 175.952 246.146 176.147L245.143 177.15C244.948 177.057 244.733 177 244.503 177H237.497C236.671 177 236 177.671 236 178.498V185.503C236 185.733 236.056 185.949 236.149 186.144L235.146 187.147C234.951 187.342 234.951 187.659 235.146 187.854C235.244 187.952 235.372 188 235.5 188C235.628 188 235.755 187.952 235.853 187.854L236.856 186.851C237.051 186.944 237.266 187 237.497 187H244.503C245.328 187 246 186.33 246 185.503V183.269L247.489 184.741C247.659 184.911 247.884 185 248.114 185C248.228 185 248.344 184.978 248.453 184.933C248.785 184.795 249 184.473 249 184.113V179.889C249 179.529 248.785 179.207 248.453 179.068Z" fill="white"/>
-			<path fill-rule="evenodd" clip-rule="evenodd" d="M207.989 184C207.989 185.103 207.092 186 205.989 186C204.886 186 203.989 185.103 203.989 184V183.707L207.989 179.707V184ZM203.989 178C203.989 176.897 204.886 176 205.989 176C207.092 176 207.989 176.897 207.989 178V178.293L203.989 182.293V178ZM211.843 175.146C211.648 174.951 211.331 174.951 211.136 175.146L208.918 177.364C208.626 176.013 207.427 175 205.989 175C204.332 175 202.989 176.343 202.989 178V183.293L200.146 186.136C199.951 186.331 199.951 186.647 200.146 186.843C200.244 186.94 200.372 186.989 200.5 186.989C200.628 186.989 200.756 186.94 200.853 186.843L203.063 184.633C203.321 185.821 204.28 186.746 205.489 186.95V188H204.489C204.214 188 203.989 188.225 203.989 188.5C203.989 188.775 204.214 189 204.489 189H207.489C207.764 189 207.989 188.775 207.989 188.5C207.989 188.225 207.764 188 207.489 188H206.489V186.95C207.906 186.71 208.989 185.485 208.989 184V178.707L211.843 175.853C212.038 175.658 212.038 175.341 211.843 175.146Z" fill="white"/>
+			<path id='btnVideo' class='opcity0' fill-rule="evenodd" clip-rule="evenodd" d="M248.003 183.998L246.01 182.001L248.003 180.004V183.998ZM244.503 186H237.707L245 178.707V185.503C245 185.777 244.776 186 244.503 186ZM237 178.498C237 178.224 237.223 178 237.497 178H244.293L237 185.293V178.498ZM248.453 179.068C248.12 178.931 247.741 179.006 247.492 179.258L246 180.733V178.498C246 178.268 245.943 178.052 245.85 177.857L246.853 176.854C247.048 176.659 247.048 176.342 246.853 176.147C246.658 175.952 246.341 175.952 246.146 176.147L245.143 177.15C244.948 177.057 244.733 177 244.503 177H237.497C236.671 177 236 177.671 236 178.498V185.503C236 185.733 236.056 185.949 236.149 186.144L235.146 187.147C234.951 187.342 234.951 187.659 235.146 187.854C235.244 187.952 235.372 188 235.5 188C235.628 188 235.755 187.952 235.853 187.854L236.856 186.851C237.051 186.944 237.266 187 237.497 187H244.503C245.328 187 246 186.33 246 185.503V183.269L247.489 184.741C247.659 184.911 247.884 185 248.114 185C248.228 185 248.344 184.978 248.453 184.933C248.785 184.795 249 184.473 249 184.113V179.889C249 179.529 248.785 179.207 248.453 179.068Z" fill="white"/>
+			<path id='btnMute' class='opcity0' fill-rule="evenodd" clip-rule="evenodd" d="M207.989 184C207.989 185.103 207.092 186 205.989 186C204.886 186 203.989 185.103 203.989 184V183.707L207.989 179.707V184ZM203.989 178C203.989 176.897 204.886 176 205.989 176C207.092 176 207.989 176.897 207.989 178V178.293L203.989 182.293V178ZM211.843 175.146C211.648 174.951 211.331 174.951 211.136 175.146L208.918 177.364C208.626 176.013 207.427 175 205.989 175C204.332 175 202.989 176.343 202.989 178V183.293L200.146 186.136C199.951 186.331 199.951 186.647 200.146 186.843C200.244 186.94 200.372 186.989 200.5 186.989C200.628 186.989 200.756 186.94 200.853 186.843L203.063 184.633C203.321 185.821 204.28 186.746 205.489 186.95V188H204.489C204.214 188 203.989 188.225 203.989 188.5C203.989 188.775 204.214 189 204.489 189H207.489C207.764 189 207.989 188.775 207.989 188.5C207.989 188.225 207.764 188 207.489 188H206.489V186.95C207.906 186.71 208.989 185.485 208.989 184V178.707L211.843 175.853C212.038 175.658 212.038 175.341 211.843 175.146Z" fill="white"/>
 			<rect x="264" y="168" width="65" height="28" rx="14" fill="#2ED557"/>
+			<text x='200' y='100' class='opcity0' id='testText' fill="black" xml:space="preserve"></text>
 			<g id='pop3'>	
-				<foreignObject x="0" y="0" width="520" height="248" xmlns="http://www.w3.org/1999/xhtml">
-					<div xmlns="http://www.w3.org/1999/xhtml" class='foreignContainer'>
-						<p id='popP3' xmlns="http://www.w3.org/1999/xhtml" style="bottom: 95px; left:185px; width:183px; transform: scale(0); ">If everything looks good, join here.</p>
-					</div>
-				</foreignObject>
-				<path id='popTri3' transform='scale(0,0)' style='transform-origin:296.5px 160px' transform-origin='296.5 160' fill-rule="evenodd" clip-rule="evenodd" d="M286.375 152.264C290.233 152.264 294.267 160 296.191 160C298.114 160 302.348 152.264 306.007 152.264C309.821 152.264 282.517 152.264 286.375 152.264Z" fill="#08599C"/>
+				<rect id='popRect3' transform='scale(0,0)' style='transform-origin:296.5px 160px' x="185" y="72" width="223" height="82" rx="5" fill="#08599C"/>
+				<path id='popTri3' transform='scale(0,0)' style='transform-origin:296.5px 160px'  fill-rule="evenodd" clip-rule="evenodd" d="M286.375 152.264C290.233 152.264 294.267 160 296.191 160C298.114 160 302.348 152.264 306.007 152.264C309.821 152.264 282.517 152.264 286.375 152.264Z" fill="#08599C"/>
+				<text id='popText3' class='opcity0' fill="white" xml:space="preserve"></text>
 			</g>
 			<g id='pop1'>
-				<foreignObject x="0" y="0" width="520" height="248" xmlns="http://www.w3.org/1999/xhtml">
-					<div xmlns="http://www.w3.org/1999/xhtml" class='foreignContainer'>
-						<p id='popP1' xmlns="http://www.w3.org/1999/xhtml" style="bottom: 50px; left:25px; width:240px; transform: scale(0); ">Connect to a Cisco video device or a Cisco Webex Share device.</p>
-					</div>
-				</foreignObject>
-				<path id='popTri1' transform='scale(0,0)' style='transform-origin:166px 204px' transform-origin='166 204' fill-rule="evenodd" clip-rule="evenodd" d="M156.158 196.264C160.016 196.264 164.05 204 165.974 204C167.898 204 172.131 196.264 175.79 196.264C179.605 196.264 152.3 196.264 156.158 196.264Z" fill="#08599C"/>
+				<rect id='popRect1' transform='scale(0,0)' style='transform-origin:166px 204px'  x="26" y="116" width="280" height="82" rx="5" fill="#08599C"/>
+				<path id='popTri1' transform='scale(0,0)' style='transform-origin:166px 204px' fill-rule="evenodd" clip-rule="evenodd" d="M156.158 196.264C160.016 196.264 164.05 204 165.974 204C167.898 204 172.131 196.264 175.79 196.264C179.605 196.264 152.3 196.264 156.158 196.264Z" fill="#08599C"/>
+				<text id='popText1' class='opcity0' fill="white" xml:space="preserve"></text>
 			</g>
 			<g id='pop0'>
-				<foreignObject x="0" y="0" width="520" height="248" xmlns="http://www.w3.org/1999/xhtml">
-					<div xmlns="http://www.w3.org/1999/xhtml" class='foreignContainer'>
-						<p id='popP0' xmlns="http://www.w3.org/1999/xhtml" style="bottom: 50px; left:135px; width:210px; transform: scale(0); ">Choose your audio option before join.</p>
-					</div>
-				</foreignObject>
-				<path id='popTri0' transform='scale(0,0)' style='transform-origin:220px 204px' transform-origin='260 204' fill-rule="evenodd" clip-rule="evenodd" d="M247.477 197.143C252.386 197.143 257.519 204 259.967 204C262.414 204 267.801 197.143 272.457 197.143C277.31 197.143 242.568 197.143 247.477 197.143Z" fill="#08599C"/>
+				<rect id='popRect0' transform='scale(0,0)' style='transform-origin:220px 204px;' x="135" y="116" width="250" height="82" rx="5" fill="#08599C"/>
+				<path id='popTri0' transform='scale(0,0)' style='transform-origin:220px 204px;' fill-rule="evenodd" clip-rule="evenodd" d="M247.477 197.143C252.386 197.143 257.519 204 259.967 204C262.414 204 267.801 197.143 272.457 197.143C277.31 197.143 242.568 197.143 247.477 197.143Z" fill="#08599C"/>
+				<text id='popText0' class='opcity0' fill="white" xml:space="preserve"></text>
 			</g>
 			<g id='pop2'>
-				<foreignObject x="0" y="0" width="520" height="248" xmlns="http://www.w3.org/1999/xhtml">
-					<div xmlns="http://www.w3.org/1999/xhtml" class='foreignContainer'>
-						<p id='popP2' xmlns="http://www.w3.org/1999/xhtml" style="bottom: 99px; left:80px; width:240px; transform: scale(1); ">Mute your microphone or turn off your video before joining.</p>
-					</div>
-				</foreignObject>
-				<path id='popTri2' transform='scale(0,0)' style='transform-origin:220px 156px' transform-origin='220 156' fill-rule="evenodd" clip-rule="evenodd" d="M210.158 148.264C214.016 148.264 218.05 156 219.974 156C221.898 156 226.131 148.264 229.79 148.264C233.605 148.264 206.3 148.264 210.158 148.264Z" fill="#08599C"/>
+				<rect id='popRect2' transform='scale(0,0)' style='transform-origin:220px 156px' x="80" y="68" width="280" height="82" rx="5" fill="#08599C"/>
+				<path id='popTri2' transform='scale(0,0)'  style='transform-origin:220px 156px' fill-rule="evenodd" clip-rule="evenodd" d="M210.158 148.264C214.016 148.264 218.05 156 219.974 156C221.898 156 226.131 148.264 229.79 148.264C233.605 148.264 206.3 148.264 210.158 148.264Z" fill="#08599C"/>
+				<text id='popText2' class='opcity0' fill="white" xml:space="preserve"></text>
 			</g>
 		</svg>		
 	</body>

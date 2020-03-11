@@ -1,11 +1,65 @@
 (function () {
+
     var getQueryString = function (name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
         var r = window.location.search.substr(1).match(reg);
         return r != null ? decodeURI(r[2]) : null;
     };
 
+    var STR = ['Choose your audio option before join.',
+        'Connect to a Cisco video device or a Cisco Webex Share device.',
+        'Mute your microphone or turn off your video before joining.',
+        'If everything looks good, join here.'];
+
+    var TextHelp = function (testDom, text, maxWidth) {
+        this.Text = text;
+        this.Max = maxWidth || 240;
+        this.TestDom = testDom;
+        this.init();
+    };
+    TextHelp.prototype = {
+        init: function () {
+            this.Txt = this.test(this.Text, ' ');
+        },
+        build: function ( dom, x0, y0, yPlus) {
+            var txt = this.Txt,
+                arr = [];
+            for (var i = 0, l = txt.length; i < l; i++) {
+                arr.push(['<tspan x="', x0, '" y="' + (y0 + i * yPlus) + '">', txt[i], '</tspan>'].join(''));
+            }
+            dom.innerHTML = arr.join('');
+        },
+        test: function (str, signal) {
+            var arr = str.split(signal),
+                ret = [],
+                str,
+                temp = [];
+
+            while (arr.length > 0) {
+                str = arr.shift();
+                if (this.lessThen(temp.join(signal) + signal + str)) {
+                    temp.push(str);
+                } else if (temp.length === 0 && signal !== '') {
+                    var _ret = this.test(str, '');
+                    temp = [_ret.pop()];
+                    ret = ret.concat(_ret);
+                } else {
+                    ret.push(temp.join(signal));
+                    temp = [str];
+                }
+            }
+            ret.push(temp.join(signal));
+            return ret;
+        },
+        lessThen: function (str) {
+            this.TestDom.innerHTML = str;
+            return this.TestDom.getComputedTextLength() <= this.Max;
+        }
+    };
+
     var motion = function () {
+        this.TestDom = document.getElementById('testText');
+        this.Config = [{ x: 155, y: 198, w: 210 }, { x: 46, y: 198, w: 240 },{ x: 100, y: 150, w: 240 },{ x: 205, y: 153, w: 183 }];
         this.init();
     };
     motion.prototype = {
@@ -20,7 +74,7 @@
             m.add(this.appear(1, t1));
             m.add(this.appear(2, t2));
             m.add(this.appear(3, t3));
-            m.add(this.controls(t2-30));
+            m.add(this.controls(t2 - 20));
             this.M = m;
         },
         controls: function (t0) {
@@ -29,18 +83,26 @@
                 { attr: { 'fill-opacity': '0.0' }, time: t0 + 20 },
                 { attr: { 'fill-opacity': '0.16' }, time: t0 + 30 },
                 { attr: { 'stroke-dashoffset': '0' }, tween: 'easeInOut', time: t0 + 30 },
-                { css: { 'opacity': '1.0' }, time: t0 + 270 },
-                { css: { 'opacity': '0.0' }, time: t0 + 300 }
+                { css: { 'opacity': '1.0' }, time: t0 + 290 },
+                { css: { 'opacity': '0.0' }, time: t0 + 320 }
             ],
                 t2;
             for (var i = 0; i < 2; i++) {
                 t2 = t0 + 30 + 60 * i;
                 frames.push({ attr: { 'fill-opacity': '0.32' }, time: t2 + 60 });
-                frames.push({ attr: { 'fill-opacity': '0.16' }, time: t2 + 120});
+                frames.push({ attr: { 'fill-opacity': '0.16' }, time: t2 + 120 });
             }
             return [{
                 dom: document.getElementById('controls'),
                 frames: frames
+            }, {
+                dom: [document.getElementById('btnVideo'), document.getElementById('btnMute')],
+                frames: [
+                    { css: { 'opacity': '0.0' }, time: t0 + 20 },
+                    { css: { 'opacity': '1.0' }, time: t0 + 30 },
+                    { css: { 'opacity': '1.0' }, time: t0 + 310 },
+                    { css: { 'opacity': '0.0' }, time: t0 + 320 }
+                ]
             }];
         },
         button: function (index, t0) {
@@ -78,7 +140,22 @@
         appear: function (index, t0) {
             var con = document.getElementById('pop' + index),
                 tri = document.getElementById('popTri' + index),
-                p = document.getElementById('popP' + index);
+                rect = document.getElementById('popRect' + index),
+                text = document.getElementById('popText' + index);
+
+            var lineheight = 20,
+                paddingY = 18,
+                adjust = 6,
+                config = this.Config[index],
+                help = new TextHelp(this.TestDom, STR[index], config.w),
+                lines = help.Txt.length;
+
+            help.build(text, config.x, config.y - paddingY - adjust - lineheight * (lines-1), lineheight);
+
+            let h = paddingY * 2 + lineheight * lines;
+            rect.setAttribute('height', h);
+            rect.setAttribute('y', config.y - h);
+
             var conFrames = [
                 { css: { opacity: '1.0' }, time: t0 + 290 },
                 { css: { opacity: '0.0' }, time: t0 + 300 }
@@ -94,17 +171,21 @@
                 {
                     dom: tri,
                     frames: [
-                        { css: { opacity: '0' }, attr: { transform: 'scale(1,0)' }, time: t0 },
+                        { css: { opacity: '0', transform: 'scale(1,0)'}, time: t0 },
                         { css: { opacity: '1.0' }, time: t0 + 6 },
-                        { attr: { transform: 'scale(1,1.0)' }, tween: 'easeInOut', time: t0 + 6 }
+                        { css: { transform: 'scale(1,1.0)' }, tween: 'easeInOut', time: t0 + 6 }
                     ]
                 }, {
-                    dom: p,
+                    dom: rect,
                     frames: [
-                        { css: { transform: 'scale(0.0)' }, time: t0 + 5 },
-                        { css: { transform: 'scale(1.0)' }, tween: 'easeInOut', time: t0 + 20 },
-                        { css: { color: 'rgba(255,255,255,0)' }, time: t0 + 17 },
-                        { css: { color: 'rgba(255,255,255,1)' }, time: t0 + 20 },
+                        { css: { transform: 'scale(0,0)' }, time: t0 + 5 },
+                        { css: { transform: 'scale(1.0,1.0)' }, tween: 'easeInOut', time: t0 + 20 }
+                    ]
+                }, {
+                    dom: text,
+                    frames: [
+                        { css: { opacity: '0' }, time: t0 + 17 },
+                        { css: { opacity: '1.0' }, time: t0 + 20 },
                     ]
                 }];
         }
@@ -116,7 +197,7 @@
 
     window.onload = function () {
         var m = new motion();
-        //m.M.play();
+        m.M.play();
     };
 
 })();
