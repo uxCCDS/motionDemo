@@ -124,7 +124,7 @@
 
     window.onload = function () {
         var m = new motion();
-        m.M.play();
+        //m.M.play();
     };
 
 })();
