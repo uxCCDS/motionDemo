@@ -22,8 +22,7 @@
             this.Txt = this.test(this.Text, ' ');
         },
         build: function ( dom, x0, y0, yPlus) {
-            var txt = this.Txt,
-                arr = [];
+            var txt = this.Txt;
             for (var i = 0, l = txt.length; i < l; i++) {
                 var tspan = document.createElementNS("http://www.w3.org/2000/svg", "tspan");
                 tspan.setAttribute('x', x0);
@@ -78,7 +77,11 @@
                 t1 = 330,
                 t2 = 700,
                 t3 = 1030;
-            var m = mframe(this.button(0, t0));
+            var m = mframe(this.button(0, t0), {
+                end: function() {
+                    console.log('end');
+                }
+            });
             m.add(this.button(1, t1));
             m.add(this.appear(0, t0));
             m.add(this.appear(1, t1));
