@@ -25,9 +25,13 @@
             var txt = this.Txt,
                 arr = [];
             for (var i = 0, l = txt.length; i < l; i++) {
-                arr.push(['<tspan x="', x0, '" y="' + (y0 + i * yPlus) + '">', txt[i], '</tspan>'].join(''));
+                var tspan = document.createElementNS("http://www.w3.org/2000/svg", "tspan");
+                tspan.setAttribute('x', x0);
+                tspan.setAttribute('y', y0 + i * yPlus);
+                tspan.textContent =  txt[i];
+                tspan.innerHTML =  txt[i];
+                dom.appendChild(tspan);
             }
-            dom.innerHTML = arr.join('');
         },
         test: function (str, signal) {
             var arr = str.split(signal),
@@ -53,13 +57,19 @@
         },
         lessThen: function (str) {
             this.TestDom.innerHTML = str;
+            this.TestDom.textContent = str;
             return this.TestDom.getComputedTextLength() <= this.Max;
         }
     };
 
     var motion = function () {
         this.TestDom = document.getElementById('testText');
-        this.Config = [{ x: 155, y: 198, w: 210 }, { x: 46, y: 198, w: 240 },{ x: 100, y: 150, w: 240 },{ x: 205, y: 153, w: 183 }];
+        this.Config = [
+            { x: 155, y: 198, w: 210, cx: 220, cy: 204 }, 
+            { x: 46, y: 198, w: 240, cx: 166, cy: 204 },
+            { x: 100, y: 150, w: 240, cx: 220, cy: 156 },
+            { x: 205, y: 153, w: 183, cx: 296, cy: 160 }
+        ];
         this.init();
     };
     motion.prototype = {
@@ -145,6 +155,7 @@
 
             var lineheight = 20,
                 paddingY = 18,
+                paddingX= 20,
                 adjust = 6,
                 config = this.Config[index],
                 help = new TextHelp(this.TestDom, STR[index], config.w),
@@ -152,18 +163,21 @@
 
             help.build(text, config.x, config.y - paddingY - adjust - lineheight * (lines-1), lineheight);
 
-            let h = paddingY * 2 + lineheight * lines;
-            rect.setAttribute('height', h);
-            rect.setAttribute('y', config.y - h);
+            config.h = paddingY * 2 + lineheight * lines;
+            config.cy2 = config.y - config.h;
+            config.cx2 = config.x - paddingX;
+            config.cy1 = config.cy;
+            config.cx1= config.cx2 + paddingX + config.w/2>>0;
+            config.w2 = config.w + paddingX*2;
 
             var conFrames = [
                 { css: { opacity: '1.0' }, time: t0 + 290 },
                 { css: { opacity: '0.0' }, time: t0 + 300 }
             ];
             for (var i = 0; i < 5; i++) {
-                conFrames.push({ css: { transform: 'translateY(0.0px)' }, time: t0 + i * 60, tween: 'easeInOut' });
-                conFrames.push({ css: { transform: 'translateY(8.0px)' }, time: t0 + i * 60 + 30, tween: 'easeInOut' });
-                conFrames.push({ css: { transform: 'translateY(0.0px)' }, time: t0 + i * 60 + 60, tween: 'easeInOut' });
+                conFrames.push({ attr: { transform: 'translate(0,0.0)' }, time: t0 + i * 60, tween: 'easeInOut' });
+                conFrames.push({ attr: { transform: 'translate(0,8.0)' }, time: t0 + i * 60 + 30, tween: 'easeInOut' });
+                conFrames.push({ attr: { transform: 'translate(0,0.0)' }, time: t0 + i * 60 + 60, tween: 'easeInOut' });
             }
             var conArg = { dom: con, frames: conFrames };
             return [
@@ -171,15 +185,14 @@
                 {
                     dom: tri,
                     frames: [
-                        { css: { opacity: '0', transform: 'scale(1,0)'}, time: t0 },
-                        { css: { opacity: '1.0' }, time: t0 + 6 },
-                        { css: { transform: 'scale(1,1.0)' }, tween: 'easeInOut', time: t0 + 6 }
+                        { css: { opacity: '0' }, time: t0 },
+                        { css: { opacity: '1.0' }, time: t0 + 6 }
                     ]
                 }, {
                     dom: rect,
                     frames: [
-                        { css: { transform: 'scale(0,0)' }, time: t0 + 5 },
-                        { css: { transform: 'scale(1.0,1.0)' }, tween: 'easeInOut', time: t0 + 20 }
+                        { attr: { x: config.cx1, y: config.cy1, width:0, height:0 }, time: t0 + 5 },
+                        { attr: { x: config.cx2, y: config.cy2, width:config.w2, height:config.h }, tween: 'easeInOut', time: t0 + 20 }
                     ]
                 }, {
                     dom: text,
