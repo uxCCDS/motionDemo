@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Webex</title>
+		<meta http-equiv="Access-Control-Allow-Origin" content="*">
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" >
+		<meta name="format-detection" content="telephone=no">
+		<script type="text/javascript" src='../js/mframe.js'></script>
+        <script type="text/javascript" src='index.js'></script>
+	</head>
+	<body>
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M11 2C6.038 2 2 6.038 2 11C2 15.962 6.038 20 11 20C15.962 20 20 15.962 20 11C20 6.038 15.962 2 11 2ZM11 21C5.486 21 1 16.514 1 11C1 5.486 5.486 1 11 1C16.514 1 21 5.486 21 11C21 16.514 16.514 21 11 21ZM11 8C9.346 8 8 9.346 8 11C8 12.654 9.346 14 11 14C12.654 14 14 12.654 14 11C14 9.346 12.654 8 11 8ZM11 15C8.794 15 7 13.206 7 11C7 8.794 8.794 7 11 7C13.206 7 15 8.794 15 11C15 13.206 13.206 15 11 15Z" fill="#171B1F"/>
+            <circle id='circle' cx="11" cy="11" r="4" fill="#FF5C4A"/>
+        </svg>
+        <script type="text/javascript">
+            var motion = mframe([{
+                dom: document.getElementById('circle'),
+                frames: [
+                    { attr: {fill:'#D93829', r: '4'} , time:0 },
+                    { attr: {fill:'#F7644A', r: '5.0'} , time:60, tween: 'easeInOut' },
+                    { attr: {fill:'#D93829', r: '4.0'} , time:120, tween: 'easeInOut' }
+                ]
+            }]);
+            motion.repeat(Infinity);
+        </script>
+	</body>
+</html>
