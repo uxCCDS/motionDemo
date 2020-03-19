@@ -32,12 +32,18 @@
             var motion = mframe([{
                 dom: document.getElementById('rectBackground'),
                 frames: [
-                    { attr: {y:'9'} , time:0 },
-                    { attr: {y:'15'} , time:30, tween: 'easeIn' },
-                    { attr: {y:'7'} , time:80, tween: 'easeInOut' },
-                    { attr: {y:'15'} , time:90, tween: 'easeOut' },
-                    { attr: {y:'2'} , time:130, tween: 'easeIn' },
-                    { attr: {y:'9'} , time:150, tween: 'easeInOut' }
+                    //2-17（15）
+                    { attr: {y:'8'} , time:0 },
+                    { attr: {y:'15.0'} , time:24, tween: 'easeInOut' },
+                    { attr: {y:'9.0'} , time:42, tween: 'easeInOut' },
+                    { attr: {y:'11.0'} , time:44, tween: 'easeInOut' },
+                    { attr: {y:'13.0'} , time:62, tween: 'easeInOut' },
+                    { attr: {y:'2.0'} , time:86, tween: 'easeInOut' },
+                    { attr: {y:'8.0'} , time:112, tween: 'easeInOut' },
+                    { attr: {y:'15.0'} , time:134, tween: 'easeInOut' },
+                    { attr: {y:'9.0'} , time:158, tween: 'easeInOut' },
+                    { attr: {y:'11.0'} , time:178, tween: 'easeInOut' },
+                    { attr: {y:'8.0'} , time:204, tween: 'easeInOut' }
                 ]
             }]);
             motion.repeat(Infinity);
