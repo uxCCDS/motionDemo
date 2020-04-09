@@ -253,13 +253,17 @@
             for(var i=0,l=btncs.length;i<l;i++) {
                 (function(i){
                     var _btn = btncs[i];
-                    _btn.addEventListener('mousedown', function() {
+                    _btn.addEventListener('mousedown', function(e) {
                         var _o = _btn.getAttribute('class');
                         _btn.setAttribute('class', _o+' btn_circle_pressed');
+                        e.stopPropagation();
+                        return false;
                     });
-                    _btn.addEventListener('mouseup', function() {
+                    _btn.addEventListener('mouseup', function(e) {
                         var _o = _btn.getAttribute('class');
                         _btn.setAttribute('class', _o.replace(' btn_circle_pressed', ''));
+                        e.stopPropagation();
+                        return false;
                     });
                 })(i);
             }
