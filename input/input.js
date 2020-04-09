@@ -8,7 +8,7 @@ var Input = function (dom) {
 Input.prototype = {
     init: function () {
         var me = this,
-            w = this._Hint.clientWidth * 0.7,
+            w = this._Hint.clientWidth * 0.7 >> 0,
             h = (-this._Hint.clientHeight / 2) >> 0,
             left0 = (16 + w) / 2 >> 0,
             left1 = 12,
