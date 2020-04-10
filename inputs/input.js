@@ -8,18 +8,19 @@ var Input = function (dom) {
 Input.prototype = {
     init: function () {
         var me = this,
-            w = this._Hint.clientWidth * 0.7 >> 0,
+            w = (this._Hint.clientWidth * 0.7 +8)>> 0 ,
             h2 = this._Hint.clientHeight* 0.7 >> 0,
             h = (-this._Hint.clientHeight / 2) >> 0,
             t = parseInt(mframe.Cpu.Cores.css.get(this._Hint, 'top')),
             left = parseInt(mframe.Cpu.Cores.css.get(this._Hint, 'left')),
-            left0 = left + w / 2 >> 0;
+            left0 = left + w / 2 >> 0,
+            left1 = left - 4;
 
         this.Motion = mframe([{
             dom: this._BorderBc,
             frames: [
                 { css: { left: left0 + 'px', width: '0px' }, time: 0 },
-                { css: { left: left + '.0px', width: w + '.0px', height:'1px', top:'-1px' }, time: 6, tween: 'easeOut' },
+                { css: { left: left1 + '.0px', width: w + '.0px', height:'1px', top:'-1px' }, time: 6, tween: 'easeOut' },
                 { css: { height: h2 + '.0px', top: h + '.0px' }, time: 12, tween: 'easeOut' }
             ]
         }, {
