@@ -80,7 +80,9 @@ Input.prototype = {
         this.removeClass(this.Dom, 'md_input_press');
     },
     mousedown: function () {
-        this.addClass(this.Dom, 'md_input_press');
+        if(!this.isEmpty()) {
+            this.addClass(this.Dom, 'md_input_press');
+        }
     },
     keyup: function () {
         var c = this.Dom.className;
