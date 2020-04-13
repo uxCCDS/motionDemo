@@ -3,13 +3,14 @@ var Input = function (dom) {
     this._BorderBc = dom.getElementsByTagName('I')[0];
     this._Hint = dom.getElementsByTagName('LABEL')[0];
     this.Input = dom.getElementsByTagName('INPUT')[0];
+    this._BtnClear = dom.getElementsByTagName('A')[0];
     this.init();
 };
 Input.prototype = {
     init: function () {
         var me = this,
-            w = (this._Hint.clientWidth * 0.7 +8)>> 0 ,
-            h2 = this._Hint.clientHeight* 0.7 >> 0,
+            w = (this._Hint.clientWidth * 0.7 + 8) >> 0,
+            h2 = this._Hint.clientHeight * 0.7 >> 0,
             h = (-this._Hint.clientHeight / 2) >> 0,
             t = parseInt(mframe.Cpu.Cores.css.get(this._Hint, 'top')),
             left = parseInt(mframe.Cpu.Cores.css.get(this._Hint, 'left')),
@@ -20,7 +21,7 @@ Input.prototype = {
             dom: this._BorderBc,
             frames: [
                 { css: { left: left0 + 'px', width: '0px' }, time: 0 },
-                { css: { left: left1 + '.0px', width: w + '.0px', height:'1px', top:'-1px' }, time: 6, tween: 'easeOut' },
+                { css: { left: left1 + '.0px', width: w + '.0px', height: '1px', top: '-1px' }, time: 6, tween: 'easeOut' },
                 { css: { height: h2 + '.0px', top: h + '.0px' }, time: 12, tween: 'easeOut' }
             ]
         }, {
@@ -50,6 +51,11 @@ Input.prototype = {
         this.Input.addEventListener('mousedown', function (e) {
             me.mousedown(e);
         });
+
+        this._BtnClear.addEventListener('click', function (e) {
+            me.Input.value = '';
+            me.removeClass(me.Dom, 'md_input_typed');
+        });
     },
     isEmpty: function () {
         return this.Input.value.replace(/\r\n\t\s/g, '') === '';
@@ -61,25 +67,25 @@ Input.prototype = {
             this.Motion.play();
         }
     },
-    removeClass: function(dom, className) {
-        dom.className = dom.className.replace(' '+className, '');
+    removeClass: function (dom, className) {
+        dom.className = dom.className.replace(' ' + className, '');
     },
-    addClass: function(dom, className) {
-        if(dom.className.indexOf(' '+className)===-1) {
-            dom.className += ' '+ className;
+    addClass: function (dom, className) {
+        if (dom.className.indexOf(' ' + className) === -1) {
+            dom.className += ' ' + className;
         }
     },
-    mouseup: function() {
+    mouseup: function () {
         this.removeClass(this.Dom, 'md_input_press');
     },
-    mousedown: function() {
+    mousedown: function () {
         this.addClass(this.Dom, 'md_input_press');
     },
-    keyup: function() {
+    keyup: function () {
         var c = this.Dom.className;
-        if(this.isEmpty()) {
+        if (this.isEmpty()) {
             this.removeClass(this.Dom, 'md_input_typed');
-        } else if(c.indexOf(' md_input_typed') === -1){
+        } else if (c.indexOf(' md_input_typed') === -1) {
             this.addClass(this.Dom, 'md_input_typed');
         }
     },

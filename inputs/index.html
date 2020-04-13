@@ -22,6 +22,8 @@
                 line-height: 14px; display: block; color: #545454;transform-origin: left center; user-select:none; }
 
             .md_input i { position: absolute;  top: -1px; left: 16px ; display: block; width: 0px; height: 1px; background: white;}
+			.md_input a{display: none; position: absolute; right: 16px; top: 7px; cursor: pointer;
+				width: 16px; height: 16px; background: url('close.svg') no-repeat center; background-size: contain;}
 
             .md_input:hover{background: #DEDEDE;}
 			.md_input:hover label{color:#121212;}
@@ -32,16 +34,16 @@
 			.md_input_press{background: #CCCCCC!important; border-color: #CCCCCC;}
 			.md_input_press label{color:#121212!important;}
 
-			.md_input_typed{background: #FFFFFF!important; border-color: #007AA3;}
-			.md_input_typed label{color:#007AA3!important;}
+			.md_input_typed a{ display:block; }
 
 		</style>
 	</head>
 	<body>
 	    <div class='md_input' id='md_input' style="margin:20px;">
             <i></i>
-            <label>Hint-ggg</label>
-            <input />
+			<label>Hint-ggg</label>
+			<input />
+			<a></a>
         </div>
 	</body>
 </html>
