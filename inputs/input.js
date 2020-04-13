@@ -55,6 +55,7 @@ Input.prototype = {
         this._BtnClear.addEventListener('click', function (e) {
             me.Input.value = '';
             me.removeClass(me.Dom, 'md_input_typed');
+            me.Input.focus();
         });
     },
     isEmpty: function () {
