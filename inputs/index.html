@@ -12,13 +12,23 @@
         <script type="text/javascript" src='../js/mframe.js'></script>
         <script type="text/javascript" src='input.js'></script>
 		<style type="text/css">
-			.md_input{  position: relative; border: 1px solid #CCCCCC;  height: 30px;  width: 320px; 
-                background: #FFFFFF;border-radius: 4px;}
+			@font-face {
+                font-family: 'CiscoSansTTRegular';
+                src: url('../font/CiscoSansTTRegular.eot');
+                src: url('../font/CiscoSansTTRegular.eot?#iefix') format('embedded-opentype'),
+                    url('../font/CiscoSansTTRegular.ttf') format('truetype'),
+                    url('../font/CiscoSansTTRegular.svg#CiscoSansTTRegular') format('svg');
+                font-weight: normal;
+                font-style: normal;
+            }
+			.md_input{  font-family: 'CiscoSansTTRegular'; position: relative; border: 1px solid #CCCCCC;  
+				height: 30px;  width: 320px; background: #FFFFFF;border-radius: 4px;}
 
-            .md_input input { position: absolute; width: 100%; height: 100%; line-height: 14px; font-size: 14px;  
+			.md_input input { font-family: 'CiscoSansTTRegular'; position: absolute; width: 100%; 
+				height: 100%; line-height: 14px; font-size: 14px;  
                 text-indent: 16px; color: #121212; border:none; background: transparent; outline : none;}
             
-            .md_input label { position: absolute; top: 8px; left: 17px; font-size: 14px; height: 18px; 
+            .md_input label { font-family: 'CiscoSansTTRegular'; position: absolute; top: 8px; left: 17px; font-size: 14px; height: 18px; 
                 line-height: 14px; display: block; color: #545454;transform-origin: left center; user-select:none; }
 
             .md_input i { position: absolute;  top: -1px; left: 16px ; display: block; width: 0px; height: 1px; background: white;}

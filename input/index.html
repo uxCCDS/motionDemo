@@ -11,8 +11,19 @@
 		<meta name="format-detection" content="telephone=no">
         <script type="text/javascript" src='../js/mframe.js'></script>
         <script type="text/javascript" src='input.js'></script>
-		<style type="text/css">
+        <style type="text/css">
+            @font-face {
+                font-family: 'CiscoSansTTRegular';
+                src: url('../font/CiscoSansTTRegular.eot');
+                src: url('../font/CiscoSansTTRegular.eot?#iefix') format('embedded-opentype'),
+                    url('../font/CiscoSansTTRegular.woff2') format('woff2'),
+                    url('../font/CiscoSansTTRegular.ttf') format('truetype'),
+                    url('../font/CiscoSansTTRegular.svg#CiscoSansTTRegular') format('svg');
+                font-weight: normal;
+                font-style: normal;
+            }
 			.md_input{ 
+                font-family: 'CiscoSansTTRegular';
                 position: relative; 
                 border: 1px solid #CCCCCC; 
                 height: 30px; 
@@ -20,8 +31,10 @@
                 background: #FFFFFF;
                 border-radius: 4px;
             }
-            .md_input input{ position: absolute; top: 6px; padding: 6px 12px; text-indent: 4px; width: 288px; height: 18px; line-height: 14px; font-size: 14px; color: #121212; border:none; background: transparent; outline : none;}
-            .md_input label {position: absolute; top: 8px; left: 16px ; font-size: 14px;height: 18px; line-height: 14px; display: block; color: #545454;transform-origin: left center;user-select:none;}
+            .md_input input{ font-family: 'CiscoSansTTRegular'; position: absolute; top: 6px; padding: 6px 12px;
+                text-indent: 4px; width: 288px; height: 18px; line-height: 14px; font-size: 14px; color: #121212; border:none; background: transparent; outline : none;}
+            .md_input label {font-family: 'CiscoSansTTRegular'; position: absolute; top: 8px; left: 16px ;
+                font-size: 14px;height: 18px; line-height: 14px; display: block; color: #545454;transform-origin: left center;user-select:none;}
             .md_input i {position: absolute; top: -1px; left: 16px ; display: block; width: 0px; height: 1px; background: white;}
 		</style>
 	</head>
