@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Webex</title>
+		<meta http-equiv="Access-Control-Allow-Origin" content="*">
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" >
+		<meta name="format-detection" content="telephone=no">
+		<script type="text/javascript" src='../js/mframe.js'></script>
+	</head>
+	<body>
+        <svg width="200px"  height="200px"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-pacman" style="background: none;">
+            <g style="display:block">
+                <circle cx="79.919" cy="50" id='ball1' r="4" fill="#5699d2"></circle>
+                <circle cx="40.319" cy="50" id='ball2' r="4" fill="#5699d2"></circle>
+                <circle cx="60.119" cy="50" id='ball3' r="4"  fill="#5699d2"></circle>
+            </g>
+            <g transform="translate(-15 0)">
+                <path id='path1' d="M50 50L20 50A30 30 0 0 0 80 50Z" ng-attr-fill="{{config.c1}}" fill="#1d3f72" transform="rotate(37.6785 50 50)"></path>
+                <path id='path2' d="M50 50L20 50A30 30 0 0 1 80 50Z" ng-attr-fill="{{config.c1}}" fill="#1d3f72" transform="rotate(-37.6785 50 50)"></path>
+            </g>
+        </svg>
+        <script type="text/javascript">
+            var motion = mframe([{
+               dom: document.getElementById('ball1'),
+               frames: [
+                   {time: 0 , attr: {cx: 95, 'fill-opacity': '0'}},
+                   {time: 12 , attr: {'fill-opacity': '1.0'}},
+                   {time: 60 , attr: {cx: 35} }
+               ]
+            },{
+               dom: document.getElementById('ball2'),
+               frames: [
+                   {time: 0 , attr: {cx: 75}},
+                   {time: 39 , attr: {cx: 35} },
+                   {time: 40 , attr: {cx: 95},'fill-opacity': '0' },
+                   {time: 60 , attr: {cx: 75},'fill-opacity': '1.0' }
+               ]
+            },{
+               dom: document.getElementById('ball3'),
+               frames: [
+                   {time: 0 , attr: {cx: 55}},
+                   {time: 19 , attr: {cx: 35},'fill-opacity': '0' },
+                   {time: 20 , attr: {cx: 95},'fill-opacity': '1.0' },
+                   {time: 60 , attr: {cx: 55}}
+               ]
+            },{
+               dom: document.getElementById('path1'),
+               frames: [
+                   {time: 0 , attr: {transform: 'rotate(0 50 50)'}},
+                   {time: 30 , attr: {transform: 'rotate(45 50 50)'}},
+                   {time: 60 , attr: {transform: 'rotate(0 50 50)'}},
+               ]
+            },{
+               dom: document.getElementById('path2'),
+               frames: [
+                   {time: 0 , attr: {transform: 'rotate(0 50 50)'}},
+                   {time: 30 , attr: {transform: 'rotate(-45 50 50)'}},
+                   {time: 60 , attr: {transform: 'rotate(0 50 50)'}},
+               ]
+            }]);
+            motion.repeat(Infinity);
+        </script>
+	</body>
+</html>
