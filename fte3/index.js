@@ -1,8 +1,70 @@
 (function () {
-
+    var STR = ['Choose your audio option before join.',
+        'Connect to a Cisco video device or a Cisco Webex Share device.',
+        'Mute your microphone or turn off your video before joining.',
+        'If everything looks good, join here.'];
+        
     var f = function (num) {
         var str = '' + num;
         return str.indexOf('.') !== -1 ? str : num.toFixed(1);
+    },
+    el= function(id){
+        return document.getElementById(id);
+    };
+
+    var TextHelp = function (testDom, text, maxWidth) {
+        this.Text = text;
+        this.Max = maxWidth || 240;
+        this.TestDom = testDom;
+        this._IfBuilt = false;
+        this.init();
+    };
+    TextHelp.prototype = {
+        init: function () {
+            this.Txt = this._test(this.Text, ' ');
+        },
+        build: function ( dom, x0, y0, yPlus) {
+            if(this._IfBuilt) {
+                return;
+            }
+            this._IfBuilt = true;
+            var txt = this.Txt;
+            for (var i = 0, l = txt.length; i < l; i++) {
+                var tspan = document.createElementNS("http://www.w3.org/2000/svg", "tspan");
+                tspan.setAttribute('x', x0);
+                tspan.setAttribute('y', y0 + i * yPlus);
+                tspan.textContent =  txt[i];
+                tspan.innerHTML =  txt[i];
+                dom.appendChild(tspan);
+            }
+        },
+        _test: function (str, signal) {
+            var arr = str.split(signal),
+                ret = [],
+                str,
+                temp = [];
+
+            while (arr.length > 0) {
+                str = arr.shift();
+                if (this._lessThen(temp.join(signal) + signal + str)) {
+                    temp.push(str);
+                } else if (temp.length === 0 && signal !== '') {
+                    var _ret = this.test(str, '');
+                    temp = [_ret.pop()];
+                    ret = ret.concat(_ret);
+                } else {
+                    ret.push(temp.join(signal));
+                    temp = [str];
+                }
+            }
+            ret.push(temp.join(signal));
+            return ret;
+        },
+        _lessThen: function (str) {
+            this.TestDom.innerHTML = str;
+            this.TestDom.textContent = str;
+            return this.TestDom.getComputedTextLength() <= this.Max;
+        }
     };
 
     var Motion = function () {
@@ -11,21 +73,25 @@
     };
     Motion.prototype = {
         initDom: function () {
-            this.Dom_Screen_Bg = document.getElementById('screen_bg');
-            this.Dom_Screen_Inner_Bg = document.getElementById('screen_inner_bg');
-            this.Dom_Screen_Button1 = document.getElementById('screen_button1');
-            this.Dom_Screen_Button2 = document.getElementById('screen_button2');
-            this.Dom_Screen_Button3 = document.getElementById('screen_button3');
-            this.Dom_Human = document.getElementById('human');
-            this.Dom_Human_Up = document.getElementById('humam_up');
-            this.Dom_Human_Mouch = document.getElementById('human_mouch');
-            this.Dom_Human_Eye_Left = document.getElementById('human_eye_left');
-            this.Dom_Human_Eye_Right = document.getElementById('human_eye_right');
-            this.Dom_Headphone = document.getElementById('headphone');
+            this.Dom_Screen_Bg = el('screen_bg');
+            this.Dom_Screen_Inner_Bg = el('screen_inner_bg');
+            this.Dom_Screen_Button1 = el('screen_button1');
+            this.Dom_Screen_Button2 = el('screen_button2');
+            this.Dom_Screen_Button3 = el('screen_button3');
+            this.Dom_Human = el('human');
+            this.Dom_Human_Up = el('humam_up');
+            this.Dom_Human_Mouch = el('human_mouch');
+            this.Dom_Human_Eye_Left = el('human_eye_left');
+            this.Dom_Human_Eye_Right = el('human_eye_right');
+            this.Dom_Headphone = el('headphone');
+            this.Dom_Phone = el('phone');
+            this.Dom_Phone_Wave1 = el('phone_wave1');
+            this.Dom_Phone_Wave2 = el('phone_wave2');
         },
         initMotion: function () {
             this._initAppear();
             this._initHeadPhone();
+            this._initPhone();
             this._initUser();
         },
         _init_screen_button: function (dom, x, w) {
@@ -151,11 +217,36 @@
                 frames: [
                     { time: 175, attr: { transform: "translate(0,-200.0) rotate(10.0, 235 84)" } },
                     { time: 195, attr: { transform: "translate(0,0.0) rotate(10.0, 235 84)" }, tween: 'easeInOut' },
-                    { time: 202, attr: { transform: "translate(0,0.0 rotate(-10.0, 235 84))" }, tween: 'easeInOut' },
+                    { time: 202, attr: { transform: "translate(0,0.0) rotate(-10.0, 235 84)" }, tween: 'easeInOut' },
                     { time: 210, attr: { transform: "translate(0,0.0) rotate(0.0, 235 84)" }, tween: 'easeInOut' },
                     { time: 280, attr: { transform: "translate(0,0.0) rotate(0.0, 235 84)" }, tween: 'easeInOut' },
                     { time: 285, attr: { transform: "translate(0,8.0) rotate(0.0, 235 84)" }, tween: 'easeInOut' },
                     { time: 296, attr: { transform: "translate(0,-200.0) rotate(0.0, 235 84)" }, tween: 'easeInOut' }
+                ]
+            }]);
+        },
+        _initPhone:function() {
+            this.M.add([{
+                dom: this.Dom_Phone,
+                frames: [
+                    { time: 305, attr: { transform: "rotate(-120.0, 313.5 76)" } },
+                    { time: 365, attr: { transform: "rotate(0.0, 313.5 76)" }, tween: 'easeOutBounce' },
+                ]
+            },{
+                dom: this.Dom_Phone_Wave1,
+                frames: [
+                    { time: 335, attr: { opacity:'0.0'} },
+                    { time: 355, attr: { opacity:'1.0'}, tween: 'easeIn' },
+                    { time: 383, attr: { opacity:'1.0'}, tween: 'linear' },
+                    { time: 402, attr: { opacity:'0.0'}, tween: 'easeOut' }
+                ]
+            },{
+                dom: this.Dom_Phone_Wave2,
+                frames: [
+                    { time: 360, attr: { opacity:'0.0)'} },
+                    { time: 380, attr: { opacity:'1.0'}, tween: 'easeIn' },
+                    { time: 408, attr: { opacity:'1.0'}, tween: 'linear' },
+                    { time: 423, attr: { opacity:'0.0'}, tween: 'easeOut' }
                 ]
             }]);
         }
