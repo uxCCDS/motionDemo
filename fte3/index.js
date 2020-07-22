@@ -3,7 +3,7 @@
         'Connect to a Cisco video device or a Cisco Webex Share device.',
         'Mute your microphone or turn off your video before joining.',
         'If everything looks good, join here.'];
-        
+
     var f = function (num) {
         var str = '' + num;
         return str.indexOf('.') !== -1 ? str : num.toFixed(1);
@@ -37,6 +37,9 @@
                 tspan.innerHTML =  txt[i];
                 dom.appendChild(tspan);
             }
+        },
+        getMotion: function() {
+
         },
         _test: function (str, signal) {
             var arr = str.split(signal),
@@ -90,6 +93,7 @@
         },
         initMotion: function () {
             this._initAppear();
+            this._init_button();
             this._initHeadPhone();
             this._initPhone();
             this._initUser();
@@ -102,6 +106,22 @@
                     { time: 34, attr: { x: f(x), width: f(w) } }
                 ]
             }]);
+        },
+        _init_button: function() {
+            this._init_screen_button(this.Dom_Screen_Button1, 93, 40);
+            this._init_screen_button(this.Dom_Screen_Button2, 201, 100);
+            this._init_screen_button(this.Dom_Screen_Button3, 369, 40);
+            this.M.add({
+                dom: this.Dom_Screen_Button2,
+                frames: [
+                    { time: 120, attr: { x: '201.0', y: '275.0', width: '100.0', height: '5.0', rx:'2.5', ry: '2.5' } },
+                    { time: 140, attr: { x: '161.0', y: '261.0', width: '180.0', height: '33.0', rx:'16.0', ry: '16.0' }, tween: 'easeInOut' },
+                    { time: 145, attr: { x: '176.0', y: '267.0', width: '150.0', height: '21.0', rx:'10.0', ry: '10.0' }, tween: 'easeInOut' },
+                    { time: 275, attr: { x: '176.0', y: '267.0', width: '150.0', height: '21.0', rx:'10.0', ry: '10.0' }, tween: 'easeInOut' },
+                    { time: 287, attr: { x: '161.0', y: '261.0', width: '180.0', height: '33.0', rx:'16.0', ry: '16.0' }, tween: 'easeInOut' },
+                    { time: 290, attr: { x: '201.0', y: '275.0', width: '100.0', height: '5.0', rx:'2.5', ry: '2.5' }, tween: 'easeInOut' },
+                ]
+            });
         },
         _init_eye: function(x, moveLeft, moveRight, open, close) {
             var  frames = [],i,
@@ -124,13 +144,13 @@
             for(i=0;i<close.length;i++) {
                 frames.push({
                     time: close[i],
-                    attr: { height: h2, y:'141.0'  } 
+                    attr: { height: h2, y:'129.0'  } 
                 });
             }
             for(i=0;i<open.length;i++) {
                 frames.push({
                     time: open[i],
-                    attr: { height: h1, y:'139.0' } 
+                    attr: { height: h1, y:'127.0' } 
                 });
             }
             return frames;
@@ -140,13 +160,13 @@
             for(i=0;i<open.length;i++) {
                 frames.push({
                     time: open[i],
-                    attr: { transform: "translate(0.0, 0.0)" } 
+                    attr: { transform: "translate(254,154) scale(1.0)" } 
                 });
             }
             for(i=0;i<close.length;i++) {
                 frames.push({
                     time: close[i],
-                    attr: { transform: "translate(3.0, -5.0)" } 
+                    attr: { transform: "translate(254,154) scale(0.1)" } 
                 });
             }
             return frames;
@@ -162,57 +182,42 @@
             }, {
                 dom: this.Dom_Human_Up,
                 frames: [
-                    { time: 74, attr: { transform: "rotate(0.0, 228 222)" } },
-                    { time: 84, attr: { transform: "rotate(10.0, 228 222)" }, tween: 'easeInOut' },
-                    { time: 94, attr: { transform: "rotate(0.0, 228 222)" }, tween: 'easeInOut' },
-                    { time: 500, attr: { transform: "rotate(0.0, 228 222)" } },
-                    { time: 510, attr: { transform: "rotate(-10.0, 228 222)" }, tween: 'easeInOut' },
-                    { time: 520, attr: { transform: "rotate(0.0, 228 222)" }, tween: 'easeInOut' }
+                    { time: 74, attr: { transform: "rotate(0.0, 250 210)" } },
+                    { time: 84, attr: { transform: "rotate(10.0, 250 210)" }, tween: 'easeInOut' },
+                    { time: 94, attr: { transform: "rotate(0.0, 250 210)" }, tween: 'easeInOut' },
+                    { time: 500, attr: { transform: "rotate(0.0, 250 210)" } },
+                    { time: 510, attr: { transform: "rotate(-10.0, 250 210)" }, tween: 'easeInOut' },
+                    { time: 520, attr: { transform: "rotate(0.0, 250 210)" }, tween: 'easeInOut' }
                 ]
             }, {
                 dom: this.Dom_Human_Mouch,
                 frames: this._mouch([90,135,255,315],[110,270,300])
             }, {
                 dom: this.Dom_Human_Eye_Left,
-                frames: this._init_eye(221, [300,480],[310,470],[325,345],[335])
+                frames: this._init_eye(242, [300,480],[310,470],[325,345],[335])
             }, {
                 dom: this.Dom_Human_Eye_Right,
-                frames: this._init_eye(247, [300,480],[310,470],[325,345],[335])
+                frames: this._init_eye(268, [300,480],[310,470],[325,345],[335])
             }]);
         },
         _initAppear: function () {
             this.M = mframe([{
                 dom: this.Dom_Screen_Bg,
                 frames: [
-                    { time: 0, attr: { x: '230.0', y: '214.0', width: '0.0', height: '0.0' } },
-                    { time: 25, attr: { x: '20.0', y: '61.0', width: '420.0', height: '306.0' }, tween: 'easeInOut' },
-                    { time: 30, attr: { x: '40.0', y: '76.0', width: '380.0', height: '276.0' }, tween: 'easeInOut' }
+                    { time: 0, attr: { x: '251.0', y: '202.0', width: '0.0', height: '0.0' } },
+                    { time: 25, attr: { x: '41.0', y: '44.0', width: '420.0', height: '306.0' }, tween: 'easeInOut' },
+                    { time: 30, attr: { x: '61.0', y: '64.0', width: '380.0', height: '276.0' }, tween: 'easeInOut' }
                 ]
             }, {
                 dom: this.Dom_Screen_Inner_Bg,
                 frames: [
-                    { time: 14, attr: { x: '230.0', y: '184.5', width: '0.0', height: '0.0' } },
-                    { time: 35, attr: { x: '56.0', y: '92.0', width: '348.0', height: '185.0' }, tween: 'easeInOut' }
+                    { time: 14, attr: { x: '251.0', y: '172.5', width: '0.0', height: '0.0' } },
+                    { time: 35, attr: { x: '77.0', y: '80.0', width: '348.0', height: '185.0' }, tween: 'easeInOut' }
                 ]
             }]);
-            this._init_screen_button(this.Dom_Screen_Button1, 72, 40);
-            this._init_screen_button(this.Dom_Screen_Button2, 180, 100);
-            this._init_screen_button(this.Dom_Screen_Button3, 348, 40);
         },
         _initHeadPhone: function() {
             this.M.add([{
-                dom: this.Dom_Screen_Button2,
-                frames: [
-                    { time: 120, attr: { x: '180.0', y: '287.0', width: '100.0', height: '5.0', rx:'2.5', ry: '2.5' } },
-                    { time: 140, attr: { x: '149.0', y: '273.0', width: '162.0', height: '33.0', rx:'16.0', ry: '16.0' }, tween: 'easeInOut' },
-                    { time: 145, attr: { x: '155.0', y: '279.0', width: '150.0', height: '21.0', rx:'10.0', ry: '10.0' }, tween: 'easeInOut' },
-                    { time: 165, attr: { fill:'#EDEDED' } },
-                    { time: 180, attr: { fill:'#F9D584' } },
-                    { time: 275, attr: { x: '155.0', y: '279.0', width: '150.0', height: '21.0', rx:'10.0', ry: '10.0', fill:'#F9D584'  }, tween: 'easeInOut' },
-                    { time: 287, attr: { x: '149.0', y: '273.0', width: '162.0', height: '33.0', rx:'16.0', ry: '16.0' }, tween: 'easeInOut' },
-                    { time: 290, attr: { x: '155.0', y: '279.0', width: '150.0', height: '21.0',  rx:'10.0', ry: '10.0',fill:'#F3CEF8'  }, tween: 'easeInOut' },
-                ]
-            },{
                 dom: this.Dom_Headphone,
                 frames: [
                     { time: 175, attr: { transform: "translate(0,-200.0) rotate(10.0, 235 84)" } },
@@ -229,8 +234,8 @@
             this.M.add([{
                 dom: this.Dom_Phone,
                 frames: [
-                    { time: 305, attr: { transform: "rotate(-120.0, 313.5 76)" } },
-                    { time: 365, attr: { transform: "rotate(0.0, 313.5 76)" }, tween: 'easeOutBounce' },
+                    { time: 305, attr: { transform: "rotate(-120.0, 314.5 80)" } },
+                    { time: 365, attr: { transform: "rotate(0.0, 314.5 80)" }, tween: 'easeOutBounce' },
                 ]
             },{
                 dom: this.Dom_Phone_Wave1,
