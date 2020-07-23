@@ -86,8 +86,7 @@
             for (var i = 0, l = txt.length; i < l; i++) {
                 var tspan = document.createElementNS("http://www.w3.org/2000/svg", "tspan");
                 tspan.setAttribute('x', x0);
-                tspan.setAttribute('y', y0 + i * yPlus);
-                tspan.setAttribute('dominant-baseline', 'hanging');
+                tspan.setAttribute('y', y0 + i * yPlus+15);
                 tspan.textContent = txt[i];
                 tspan.innerHTML = txt[i];
                 dom.appendChild(tspan);
