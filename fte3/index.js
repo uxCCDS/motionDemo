@@ -22,7 +22,7 @@
         this.My = my;
         this.Dom = el(id);
         this.TextDom = el(id + '_text');
-        this.Rect = el(id+'_rect');
+        this.Rect = el(id + '_rect');
         this._IfBuilt = false;
         this.Start = start;
         this.End = end;
@@ -88,7 +88,7 @@
                 tspan.innerHTML = txt[i];
                 dom.appendChild(tspan);
             }
-            this.Rect.setAttribute('height', 40+ l* yPlus);
+            this.Rect.setAttribute('height', 40 + l * yPlus);
         },
         _test: function (str, signal) {
             var arr = str.split(signal),
@@ -139,6 +139,38 @@
             this.Dom_Phone = el('phone');
             this.Dom_Phone_Wave1 = el('phone_wave1');
             this.Dom_Phone_Wave2 = el('phone_wave2');
+            this.Dom_Button_Join = el('button_join');
+            this.Dom_Button_Audio = el('button_audo');
+            this.Dom_Button_video = el('button_video');
+            this.Dom_Button_Bg = el('button_bg');
+            this.Dom_Button_Join_Bg = el('button_join_bg');
+        },
+        _initStep2: function() {
+            this.M.add([{
+                dom: this.Dom_Human,
+                frames: [
+                    { time: 615, attr: {opacity: '1.0'} },
+                    { time: 625, attr: {opacity: '0.0'} }
+                ]
+            },{
+                dom: el('avatar'),
+                frames: [
+                    { time: 615, attr: {opacity: '0.0', transform: "translate(253.5,161.5) scale(1.8) translate(-253.5,-161.5) "} },
+                    { time: 635, attr: {opacity: '1.0', transform: "translate(253.5,161.5) scale(1.0) translate(-253.5,-161.5) "} }
+                ]
+            },{
+                dom: el('clipPath_avatar_rect'),
+                frames: [
+                    { time: 615, attr: {r: '85.0'} },
+                    { time: 635, attr: {r: '57.5'} }
+                ]
+            },{
+                dom: this.Dom_Screen_Inner_Bg,
+                frames: [
+                    { time: 615, attr: {fill: '#B2E0FC'} },
+                    { time: 635, attr: {fill: '#F7F7F7'} }
+                ]
+            }]);
         },
         initMotion: function () {
             this._initAppear();
@@ -147,6 +179,7 @@
             this._initPhone();
             this._initUser();
             this._initPop();
+            this._initStep2();
         },
         _init_screen_button: function (dom, x, w) {
             this.M.add([{
@@ -157,16 +190,162 @@
                 ]
             }]);
         },
-        _initPop: function() {
+        _button_state: function(config) {
+            var x = config.x,
+                y = config.y,
+                w = config.w,
+                h = config.h,
+                r = config.r,
+                plus = config.plus;
+            return {
+                min: {
+                    width: f(0),
+                    height: f(0),
+                    x: f(x+w/2),
+                    y: f(y+h/2),
+                    rx: f(0)
+                },
+                max: {
+                    width: f(w+plus*2),
+                    height: f(h+plus*2),
+                    x: f(x-plus),
+                    y: f(y-plus),
+                    rx: f(r+plus)
+                },
+                fit: {
+                    width: f(w),
+                    height: f(h),
+                    x: f(x),
+                    y: f(y),
+                    rx: f(r)
+                }
+            }
+        },
+        _buildFrame: function(times,config) {
+            var frames = [];
+            for(var i=0,l=times.length;i<l;i++) {
+                var attr = {};
+                for(var name in config) {
+                    attr[name] = config[name];
+                }
+                frames.push({
+                    time: times[i],
+                    attr: attr,
+                    tween: 'easeInOut'
+                });
+            }
+            return frames;
+        },
+        _init_button_frames: function(dom, config, min, fit, max, color1, color2) {
+            var cfg = this._button_state(config);
+            var frames = [];
+            frames = frames.concat(this._buildFrame(min, cfg.min));
+            frames = frames.concat(this._buildFrame(fit, cfg.fit));
+            frames = frames.concat(this._buildFrame(max, cfg.max));
+            frames = frames.concat(this._buildFrame(color1, { fill: config.fill1}));
+            frames = frames.concat(this._buildFrame(color2, { fill: config.fill2}));
+            this.M.add([{
+                dom: dom,
+                frames: frames
+            }]);
+        },
+        _initPop: function () {
             //var TextHelp = function (id, text, max, mx, my, start, end, x0) {
             var t1 = new TextHelp('pop1', STR[0], 250, 250, 292, 140, 450),
-            t2 = new TextHelp('pop2', STR[1], 250, 212, 312, 510, 760),
-            t3 = new TextHelp('pop3', STR[2], 280, 111, 291, 770, 970, -68),
-            t4 = new TextHelp('pop4', STR[3], 223, 310, 330, 980, 1250, -91);
+                t2 = new TextHelp('pop2', STR[1], 250, 212, 330, 510, 760),
+                t3 = new TextHelp('pop3', STR[2], 280, 111, 291, 770, 970, -68),
+                t4 = new TextHelp('pop4', STR[3], 223, 310, 330, 980, 1250, -91);
             this.M.add(t1.g());
             this.M.add(t2.g());
             this.M.add(t3.g());
             this.M.add(t4.g());
+        },
+        _button_breathe: function(s, e) {
+            var c= s,
+                last = e - 50,
+                fit = [],
+                max = [];
+
+            for(;c<last;c+=60) {
+                fit.push(c);
+                fit.push(c+50);
+                max.push(c+20);
+            }
+            
+            return {
+                fit:fit,
+                max: max
+            };
+        },
+        _audio_vol: function() {
+            this.M.add([{
+                dom: el('icon_audio_vol'),
+                frames: [
+                    { time: 530,  attr: {y: '309.0', height: '6.0'}},
+                    { time: 560,  attr: { y: '303.0', height: '12.0'}, tween: 'easeInOut'},
+                    { time: 580,  attr: { y: '307.0', height: '8.0'}, tween: 'easeInOut'},
+                    { time: 590,  attr: { y: '303.0', height: '12.0'}, tween: 'easeInOut'},
+                    { time: 610,  attr: { y: '312.0', height: '3.0'}, tween: 'easeInOut'}
+                ]
+            }]);
+        },
+        _init_button_icon: function() {
+            var icon_video = el('icon_video'),
+                icon_audio = el('icon_audio');
+            this.M.add([{
+                dom: icon_audio,
+                frames: [
+                    { time: 520, attr: { opacity: '0.0'} },
+                    { time: 540, attr: { opacity: '1.0'}, tween: 'easeInOut'},
+                    { time: 740, attr: { opacity: '1.0'}, tween: 'easeInOut'},
+                    { time: 760, attr: { opacity: '0.0'}, tween: 'easeInOut'}
+                ]
+            },{
+                dom: icon_video,
+                frames: [
+                    { time: 530, attr: { opacity: '0.0'} },
+                    { time: 550, attr: { opacity: '1.0'}, tween: 'easeInOut'},
+                    { time: 740, attr: { opacity: '1.0'}, tween: 'easeInOut'},
+                    { time: 760, attr: { opacity: '0.0'}, tween: 'easeInOut'}
+                ]
+            }, {
+                dom: el('icon_video_dot'),
+                frames: [
+                    { time: 610, attr: { opacity: '1.0'}},
+                    { time: 630, attr: {opacity: '0.0'}}
+                ]
+            },{
+                dom: el('icon_audio_vol_group'),
+                frames: [
+                    { time: 610, attr: {opacity: '1.0'}},
+                    { time: 630, attr: {opacity: '0.0'}}
+                ]
+            },{
+                dom: el('icon_video_main'),
+                frames: [
+                    { time: 610, attr: {fill: '#121212'}},
+                    { time: 620, attr: {fill: '#D4371C'}}
+                ]
+            },{
+                dom: el('icon_audio_main'),
+                frames: [
+                    { time: 610, attr: {fill: '#121212'}},
+                    { time: 620, attr: {fill: '#D4371C'}}
+                ]
+            },{
+                dom: el('icon_video_line'),
+                frames: [
+                    { time: 610, attr: {'stroke-dashoffset': '17.0'}},
+                    { time: 620, attr: {'stroke-dashoffset': '0.0'}}
+                ]
+            },{
+                dom: el('icon_audio_line'),
+                frames: [
+                    { time: 610, attr: {'stroke-dashoffset': '16.0'}},
+                    { time: 620, attr: {'stroke-dashoffset': '0.0'}}
+                ]
+            }]);
+            this._audio_vol();
         },
         _init_button: function () {
             this._init_screen_button(this.Dom_Screen_Button1, 93, 40);
@@ -183,6 +362,38 @@
                     { time: 455, attr: { x: '201.0', y: '275.0', width: '100.0', height: '5.0', rx: '2.5', ry: '2.5' }, tween: 'easeInOut' }
                 ]
             });
+            this.M.add({
+                dom: this.Dom_Screen_Button1,
+                frames: [
+                    { time: 740, attr: { x: '93.0', y: '275.0', width: '40.0', height: '5.0', rx: '2.5', fill:'#EDEDED' } },
+                    { time: 780, attr: { x: '77.0', y: '267.0', width: '70.0', height: '21.0', rx: '10.5', fill:'#F9D783', tween: 'easeInOut' } },
+                    { time: 940, attr: { x: '77.0', y: '267.0', width: '70.0', height: '21.0', rx: '10.5', fill:'#F9D783', tween: 'easeInOut' } },
+                    { time: 980, attr: { x: '93.0', y: '275.0', width: '40.0', height: '5.0', rx: '2.5', fill:'#EDEDED', tween: 'easeInOut' } }
+                ]
+            });
+            this._init_button_frames(this.Dom_Button_Audio, {
+                x: 158, y: 298, w: 50, h:24, r:12, plus: 4, fill1:'#E5E5E5', fill2:'#FFFFFF'
+            },[460,1240], [480,510,530,610,630,740,760,1210] ,[470,520, 620,750,1220],[510,760],[530,740]);
+
+            this._init_button_frames(this.Dom_Button_video, {
+                x: 216, y: 298, w: 50, h:24, r:12, plus: 4, fill1:'#E5E5E5', fill2:'#FFFFFF'
+            },[470,1240], [490,520,540,620,640,750,770,1210] ,[480,530, 630,760,1220],[520,770],[540,750]);
+            // min fit max
+            this._init_button_frames(this.Dom_Button_Bg, {
+                x: 154, y: 294, w: 116, h:32, r:16, plus: 4
+            },[460,770], [490,510,540,610,640,740] ,[475,525, 625,755],[],[]);
+
+            var breathe = this._button_breathe(980,1210);
+
+            this._init_button_frames(this.Dom_Button_Join, {
+                x: 274, y: 298, w: 70, h:24, r:12, plus: 4, fill1:'#BCF7BF', fill2:'#7FEB86'
+            },[470,1240], [500,1210].concat(breathe.fit) ,[490,1220].concat(breathe.max),[970],[980]);
+
+            this._init_button_frames(this.Dom_Button_Join_Bg, {
+                x: 270, y: 294, w: 78, h:32, r:12, plus: 4
+            },[1250], [1210].concat(breathe.fit) ,[1220].concat(breathe.max),[],[]);
+
+            this._init_button_icon();
         },
         _init_eye: function (x, moveLeft, moveRight, open, close) {
             var frames = [], i,
@@ -232,6 +443,18 @@
             }
             return frames;
         },
+        _sh: function(opens) {
+            var frames = [];
+            for(var i=0;i<opens.length;i++) {
+                frames = frames.concat([
+                    { time: opens[i][0]-1, attr: { opacity: 0}},
+                    { time: opens[i][0], attr: { opacity: 1}},
+                    { time: opens[i][1], attr: { opacity: 1}},
+                    { time: opens[i][1]+1, attr: { opacity: 0}}
+                ]);
+            }
+            return frames;
+        },
         _initUser: function () {
             this.M.add([{
                 dom: this.Dom_Human,
@@ -259,6 +482,29 @@
             }, {
                 dom: this.Dom_Human_Eye_Right,
                 frames: this._init_eye(268, [300, 480], [310, 470], [325, 345], [335])
+            }, {
+                dom: el('mouch_big2'),
+                frames: this._sh([
+                    [527,533],[570,576]
+                ]) 
+            }, {
+                dom: el('mouch_big'),
+                frames: this._sh([
+                    [541,554],[562,568],[584,597],[605,611]
+                ]) 
+            }, {
+                dom: el('sound'),
+                frames: this._sh([
+                    [541,554],[559,577],[593,611]
+                ]) 
+            }, {
+                dom: el('hand'),
+                frames: [
+                    { time: 570, attr: { transform: "rotate(90.0, 370 300)" }},
+                    { time: 595, attr: { transform: "rotate(0.0, 370 300)" }},
+                    { time: 570, attr: { transform: "rotate(0.0, 370 300)" }},
+                    { time: 570, attr: { transform: "rotate(90.0, 370 300)" }},
+                ]
             }]);
         },
         _initAppear: function () {
@@ -272,8 +518,9 @@
             }, {
                 dom: this.Dom_Screen_Inner_Bg,
                 frames: [
-                    { time: 14, attr: { x: '251.0', y: '172.5', width: '0.0', height: '0.0' } },
-                    { time: 35, attr: { x: '77.0', y: '80.0', width: '348.0', height: '185.0' }, tween: 'easeInOut' }
+                    { time: 10, attr: { x: '251.0', y: '172.5', width: '0.0', height: '0.0' } },
+                    { time: 25, attr: { x: '72.0', y: '75.0', width: '358.0', height: '195.0' } },
+                    { time: 30, attr: { x: '77.0', y: '80.0', width: '348.0', height: '185.0' }, tween: 'easeInOut' }
                 ]
             }]);
         },
