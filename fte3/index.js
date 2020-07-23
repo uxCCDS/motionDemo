@@ -12,6 +12,10 @@
             return document.getElementById(id);
         };
 
+    var callbackEnd = function() {
+        console.log('end');
+    };
+
     var TextHelp = function (id, text, max, mx, my, start, end, x0) {
         this.TestDom = el('testText');
         this.Text = text;
@@ -156,19 +160,103 @@
                 dom: el('avatar'),
                 frames: [
                     { time: 615, attr: {opacity: '0.0', transform: "translate(253.5,161.5) scale(1.8) translate(-253.5,-161.5) "} },
-                    { time: 635, attr: {opacity: '1.0', transform: "translate(253.5,161.5) scale(1.0) translate(-253.5,-161.5) "} }
+                    { time: 635, attr: {opacity: '1.0', transform: "translate(253.5,161.5) scale(1.0) translate(-253.5,-161.5) "}, tween: 'easeInOut' },
+                    { time: 765, attr: {opacity: '1.0', transform: "translate(253.5,161.5) scale(1.0) translate(-253.5,-161.5) "}, tween: 'easeInOut' },
+                    { time: 775, attr: {opacity: '0.0', transform: "translate(253.5,161.5) scale(1.8) translate(-253.5,-161.5) "}, tween: 'easeInOut' }
                 ]
             },{
                 dom: el('clipPath_avatar_rect'),
                 frames: [
                     { time: 615, attr: {r: '85.0'} },
-                    { time: 635, attr: {r: '57.5'} }
+                    { time: 635, attr: {r: '57.5'}, tween: 'easeInOut' },
+                    { time: 765, attr: {r: '57.5'}, tween: 'easeInOut' },
+                    { time: 775, attr: {r: '85.0'}, tween: 'easeInOut' }
                 ]
             },{
                 dom: this.Dom_Screen_Inner_Bg,
                 frames: [
                     { time: 615, attr: {fill: '#B2E0FC'} },
                     { time: 635, attr: {fill: '#F7F7F7'} }
+                ]
+            }]);
+        },
+        init_step3: function() {
+            this.M.add([{
+                dom: el('con_step3_bg'),
+                frames: [
+                    { time: 765, attr: {transform: "translate(0,-175.0)"} },
+                    { time: 775, attr: {transform: "translate(0,0.0)" } , tween: 'easeInOut'},
+                    { time: 875, attr: {fill: "#EAEAEA"} },
+                    { time: 880, attr: {fill: "#F9D783"} }
+                ]
+            },{
+                dom: [el('board_y1'),el('board_y2'),el('board_y3')],
+                frames: [
+                    { time: 870, attr: {fill: "#EAEAEA"} },
+                    { time: 880, attr: {fill: "#F9D783"} }
+                ]
+            },{
+                dom: el('board_in_bg'),
+                frames: [
+                    { time: 870, attr: {fill: "#F5F5F5"} },
+                    { time: 875, attr: {fill: "#FBE9BA"} }
+                ]
+            },{
+                dom: el('board_bg'),
+                frames: [
+                    { time: 870, attr: {fill: "#FFFFFF"} },
+                    { time: 875, attr: {fill: "#FDF6E9"} }
+                ]
+            },{
+                dom: el('board'),
+                frames: [
+                    { time: 765, attr: {transform: "translate(251,146.5) scale(0.0) translate(-251, -146.5)"} },
+                    { time: 800, attr: {transform: "translate(251,146.5) scale(1.0) translate(-251, -146.5)" } , tween: 'easeInOutBounce'},
+                    { time: 855, attr: {transform: "translate(251,146.5) scale(1.0) translate(-251, -146.5)" } , tween: 'easeInOutBounce'},
+                    { time: 870, attr: {transform: "translate(251,146.5) scale(0.9) translate(-251, -146.5)" } , tween: 'easeInBounce'},
+                    { time: 880, attr: {transform: "translate(251,146.5) scale(1.2) translate(-251, -146.5)" } , tween: 'easeInOut'},
+                    { time: 890, attr: {transform: "translate(251,146.5) scale(1.0) translate(-251, -146.5)" } , tween: 'easeOutBounce'}
+                ]
+            },{
+                dom: el('desk'),
+                frames: [
+                    { time: 780, attr: {transform: "translate(0,60.0)"} },
+                    { time: 790, attr: {transform: "translate(0,0.0)" } , tween: 'easeInOut'},
+                    { time: 875, attr: {fill: "#F5F5F5"} },
+                    { time: 880, attr: {fill: "#FBE9BA"} }
+                ]
+            },{
+                dom: el('loading'),
+                frames: [
+                    { time: 790, attr: { opacity: '0.0', transform: "rotate(0.0, 251 147)"} },
+                    { time: 800, attr: { opacity: '1.0' } },
+                    { time: 840, attr: { opacity: '1.0' } },
+                    { time: 850, attr: { opacity: '0.0', transform: "rotate(360.0, 251 147)"}, tween:'easeInOut' }
+                ]
+            },{
+                dom: el('check_circle'),
+                frames: [
+                    { time: 875, attr: { r :'0.0'}},
+                    { time: 895, attr: { r :'20.0'}, tween: 'easeInOut' }
+                ]
+            },{
+                dom: el('check_right'),
+                frames: [
+                    { time: 880, attr: {'stroke-dashoffset':'25.0'} },
+                    { time: 895, attr: {'stroke-dashoffset':'0.0'}, tween: 'easeInOut' }
+                ]
+            },{
+                dom: el('device'),
+                frames: [
+                    { time: 930, attr: {opacity: '1.0',transform: "translate(0.0,0)"} },
+                    { time: 950, attr: {opacity: '0.0'} },
+                    { time: 950, attr: {transform: "translate(-400,0)"}, tween: 'easeInOutBounce' }
+                ]
+            },{
+                dom: el('human2'),
+                frames: [
+                    { time: 945, attr: {transform: "translate(0,190.0)"} },
+                    { time: 965, attr: {transform: "translate(0,0.0)"}, tween: 'easeInOutBounce' }
                 ]
             }]);
         },
@@ -180,13 +268,23 @@
             this._initUser();
             this._initPop();
             this._initStep2();
+            this.init_step3();
+            this.M.add([{
+                dom: el('almost_all'),
+                frames: [ 
+                    { time: 1235, attr: { opacity:'1.0', transform: "translate(251.0,202.0) scale(1.0) translate(-251.0,-202.0) "} }, 
+                    { time: 1275, attr: { opacity:'0.0', transform: "translate(251.0,202.0) scale(0.0) translate(-251.0,-202.0) "}, tween: 'easeInOut' }
+                ]
+            }]);
         },
         _init_screen_button: function (dom, x, w) {
             this.M.add([{
                 dom: dom,
                 frames: [
                     { time: 22, attr: { x: f(x + w / 2), width: '0.0' } },
-                    { time: 34, attr: { x: f(x), width: f(w) } }
+                    { time: 34, attr: { x: f(x), width: f(w) } },
+                    { time: 1215, attr: { x: f(x), width: f(w) } },
+                    { time: 1230, attr: { x: f(x + w / 2), width: '0.0' } }
                 ]
             }]);
         },
@@ -522,7 +620,9 @@
                     { time: 25, attr: { x: '72.0', y: '75.0', width: '358.0', height: '195.0' } },
                     { time: 30, attr: { x: '77.0', y: '80.0', width: '348.0', height: '185.0' }, tween: 'easeInOut' }
                 ]
-            }]);
+            }], {
+                end: callbackEnd
+            });
         },
         _initHeadPhone: function () {
             this.M.add([{
