@@ -1,4 +1,5 @@
 (function () {
+    var GOLBAL_POINT;
     var STR = ['Choose your audio option before join.',
         'Mute yourself or turn off your video.',
         'Connect to a Cisco video device or a Cisco Webex Share device.',
@@ -12,7 +13,19 @@
             return document.getElementById(id);
         };
 
+    var reset = function() {
+        GOLBAL_POINT.M.state(0,false);
+        GOLBAL_POINT.Dom_Button_Join_Bg.setAttribute('width','0');
+        GOLBAL_POINT.Dom_Headphone.setAttribute('transform',"translate(0, -1200)");
+        GOLBAL_POINT.Dom_Screen_Button1.setAttribute('width',"0");
+        GOLBAL_POINT.Dom_Screen_Button2.setAttribute('width',"0");
+        GOLBAL_POINT.Dom_Screen_Button3.setAttribute('width',"0");
+        GOLBAL_POINT.M.play();
+    };
+
     var callbackEnd = function() {
+
+        reset();
         console.log('end');
     };
 
@@ -668,6 +681,7 @@
 
     window.onload = function () {
         var m = new Motion();
+        GOLBAL_POINT = m;
         m.M.play();
     };
 
