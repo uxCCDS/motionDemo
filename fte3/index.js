@@ -117,7 +117,7 @@
                 if (this._lessThen(temp.join(signal) + signal + str)) {
                     temp.push(str);
                 } else if (temp.length === 0 && signal !== '') {
-                    var _ret = this.test(str, '');
+                    var _ret = this._test(str, '');
                     temp = [_ret.pop()];
                     ret = ret.concat(_ret);
                 } else {
