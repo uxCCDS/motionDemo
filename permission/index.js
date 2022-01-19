@@ -1,4 +1,5 @@
 (function () {
+    var DASH = 305;
     var GOLBAL_POINT;
     var STR = [
         'Privacy',
@@ -28,10 +29,96 @@
             elem[i].textContent = txt[i];
             elem[i].innerHTML = txt[i];
         }
-    }
+    };
 
-    
+    var TextHelper = function(txt, txtDom, txtDoms, graphDoms) {
+        this.TestDom = el('testText');
+        this.Txt = txt;
+        this.TDom = txtDom;
+        this.DomTexts = txtDoms;
+        this.DomGraph = graphDoms;
+        this.W = 280;
+        this.init();
+    };
+    TextHelper.prototype = {
+        init: function() {
+            var arr = this._test(this.Txt, ' '),
+                txtDoms = this.DomTexts,
+                graphDoms = this.DomGraph;
+            switch (arr.length) {
+                case 0:
+                case 1:
+                    this.setText(this.TDom, arr.join(''));
+                    //
+                    this.hide(txtDoms[0]);
+                    this.show(graphDoms[0]);
+                    //
+                    this.hide(txtDoms[1]);
+                    this.show(graphDoms[1]);
+                    break;
+                case 2:
+                    this.setText(this.TDom, arr[0]);
+                    //
+                    this.hide(graphDoms[0]);
+                    this.show(txtDoms[0]);
+                    this.setText(txtDoms[0], arr[1]);
+                    //
+                    this.hide(txtDoms[1]);
+                    this.show(graphDoms[1]);
+                    break;  
+                default:
+                    this.setText(this.TDom, arr[0]);
+                    //
+                    this.hide(graphDoms[0]);
+                    this.show(txtDoms[0]);
+                    this.setText(txtDoms[0], arr[1]);
+                    //
+                    this.hide(graphDoms[1]);
+                    this.show(txtDoms[1]);
+                    this.setText(txtDoms[1], arr[2]);
+                    break;
+            }
+        },
+        setText: function(dom, txt) {
+            dom.textContent = txt;
+            dom.innerHTML = txt;
+        },
+        show:function (dom) {
+            dom.style.display = '';
+        },
+        hide:function (dom) {
+            dom.style.display = 'none';
+        },
+        _test: function (str, signal) {
+            var arr = str.split(signal),
+                ret = [],
+                str,
+                temp = [];
+
+            while (arr.length > 0) {
+                str = arr.shift();
+                if (this._lessThen(temp.join(signal) + signal + str)) {
+                    temp.push(str);
+                } else if (temp.length === 0 && signal !== '') {
+                    var _ret = this._test(str, '');
+                    temp = [_ret.pop()];
+                    ret = ret.concat(_ret);
+                } else {
+                    ret.push(temp.join(signal));
+                    temp = [str];
+                }
+            }
+            ret.push(temp.join(signal));
+            return ret;
+        },
+        _lessThen: function (str) {
+            this.TestDom.innerHTML = str;
+            this.TestDom.textContent = str;
+            return this.TestDom.getComputedTextLength() <= this.W;
+        }
+    };
     var Motion = function () {
+        this.loc();
         this.init();
     };
 
@@ -46,6 +133,24 @@
                 el('txt_mic'),
                 el('txt_mic_desc')
             ], STR);
+
+            new TextHelper(STR[4], el('txt_camera_desc'), [el('txt_camera_desc1'),el('txt_camera_desc2')], [el('txt_camera_gh1'),el('txt_camera_gh2')]);
+            new TextHelper(STR[6], el('txt_mic_desc'), [el('txt_mic_desc1'),el('txt_mic_desc2')], [el('txt_mic_gh1'),el('txt_mic_gh2')]);
+            
+            var l1 = Math.ceil(el('txt_privacy').getComputedTextLength()) ,
+                l2 = Math.ceil(el('txt_location').getComputedTextLength()),
+                edge = 68,
+                maxl = Math.max(l1,l2),
+                bg = el('btn_lock_bg'),
+                bgW = +bg.getAttribute('width'),
+                plus = maxl-edge;
+
+            if(plus>0) {
+                bg.setAttribute('width', plus+bgW);
+                DASH = DASH + plus * 2;
+                bg.setAttribute('stroke-dasharray', DASH+' '+DASH);
+                bg.setAttribute('stroke-dashoffset', DASH);
+            }
         },
         init: function () {
             this.initMouse();
@@ -80,10 +185,10 @@
             },{
                 dom: el('btn_lock_bg'),
                 frames: [
-                    { time: 80, attr: { 'stroke-dashoffset': "305.0" } },
+                    { time: 80, attr: { 'stroke-dashoffset': f(DASH) } },
                     { time: 100, attr: { 'stroke-dashoffset': "0.0" }, tween: 'easeInOut' },
                     { time: 400, attr: { 'stroke-dashoffset': "0.0" }, tween: 'easeInOut' },
-                    { time: 401, attr: { 'stroke-dashoffset': "305.0" }, tween: 'easeInOut' }
+                    { time: 401, attr: { 'stroke-dashoffset': f(DASH) }, tween: 'easeInOut' }
                 ]
             },{
                 dom: el('btn_lock'),
@@ -311,7 +416,7 @@
 
     window.onload = function () {
         var m = new Motion();
-        //GOLBAL_POINT = m;
+        GOLBAL_POINT = m;
         m.M.repeat(Infinity);
     };
 

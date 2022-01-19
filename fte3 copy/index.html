@@ -11,9 +11,43 @@
 			text, tspan {font-size: 18px; font-family:"SF Pro Text", "Segoe UI"; font-weight:400;letter-spacing:0px; white-space: pre;}
 			body,html,svg{width: 100%; height: 100%;}
 			.opcity0{opacity: 0;}
-		</style>
+        </style>
         <script type="text/javascript" src='mframe.js'></script>
         <script type="text/javascript" src='index.js'></script>
+        <script type="text/javascript">
+            window.STR = ['Choose your audio option before join.',
+        'Mute yourself or turn off your video.',
+        'Connect to a Cisco video device or a Cisco Webex Share device.',
+        'If everything looks good, join here.'];
+
+            var hasLoaded = false;
+            var hasUpdatedText = false;
+            var hasInited = false;
+            var startMotion = function() {
+                if(hasLoaded && hasUpdatedText && !hasInited) {
+                    hasInited = true;
+                    var m = new FTEMOTION();
+                    window.GOLBAL_POINT = m;
+                    m.M.play();
+                }
+            }
+
+            function updateDisplayContents(text1,text2, text3, text4)
+            {
+                window.STR =[text1, text2, text3, text4];
+                hasUpdatedText = true;
+                startMotion();
+            };
+
+            setTimeout(() => {
+                updateDisplayContents('在加入前选择您的音频选项。','将您自己静音或关闭您的视频。','如果一切正常，请从这里加入。','连接到 Cisco 视频设备或 Cisco Webex Share 设备。');
+            }, 30);
+    
+            window.onload = function () {
+                hasLoaded = true;
+                startMotion();
+            };
+        </script>
 	</head>
 	<body>
         <svg width="502" height="428" viewBox="0 0 502 428" fill="none" xmlns="http://www.w3.org/2000/svg">
