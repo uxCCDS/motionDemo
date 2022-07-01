@@ -1,0 +1,23 @@
+.mt{margin-top: 20px;}
+
+.icon-record-con1 path:first-child{
+    fill:red;
+}
+
+.icon-record-con1 path:last-child {
+    fill: green;
+}
+
+.icon {
+    display: block;
+    width: 32px;
+    height: 32px;
+}
+
+.icon-record-style-mask {
+    mask: url(file:///Users/yulhuang/github/uxCCDS/motionDemo/svg-icons/record2.svg) no-repeat 50% 50%;
+    mask-size: cover;
+}
+
+.red {background-color: red;
+}
