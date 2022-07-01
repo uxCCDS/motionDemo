@@ -1,11 +1,11 @@
 .mt{margin-top: 20px;}
 
 .icon-record-con1 path:first-child{
-    fill:red;
+    fill:black;
 }
 
 .icon-record-con1 path:last-child {
-    fill: green;
+    fill: red;
 }
 
 .icon {
@@ -15,9 +15,10 @@
 }
 
 .icon-record-style-mask {
-    mask: url(file:///Users/yulhuang/github/uxCCDS/motionDemo/svg-icons/record2.svg) no-repeat 50% 50%;
+    mask: url(https://uxccds.github.io/motionDemo/svg-icons/record2.svg) no-repeat 50% 50%;
     mask-size: cover;
 }
 
-.red {background-color: red;
+.red {
+    background: radial-gradient(red 10px, yellow 30%, black 50%)
 }
