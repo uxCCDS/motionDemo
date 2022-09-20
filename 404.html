@@ -10,15 +10,11 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
         <meta name="format-detection" content="telephone=no">
         <link type="text/css" rel="stylesheet" href="index.css">
-        <script type="text/javascript" src='../js/mframe.js'></script>
-        <script type="text/javascript" src='../js/momentum-ui-motion-min.js'></script>
-        <script type="text/javascript" src='index.js'></script>
+        <script>
+            console.log(document.referrer, location.href, location.pathname);
+        </script>
 	</head>
 	<body>
-        <p>
-            <a onclick="javascript:document.getElementById('voice-input').start()">show</a>
-            <a onclick="javascript:document.getElementById('voice-input').end()">end</a>
-        </p>
-        <mm-voice-input id='voice-input'></mm-voice-input>
+
 	</body>
 </html>
